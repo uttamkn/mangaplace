@@ -1,1 +1,1 @@
-# mangaplace
+# mangaplace - api
