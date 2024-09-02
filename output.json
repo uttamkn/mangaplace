@@ -1,0 +1,1080 @@
+[
+  {
+    "id": 3442802,
+    "status": "OK",
+    "chap": "212",
+    "vol": null,
+    "last_at": "2024-09-02T10:11:55.000Z",
+    "hid": "329OLYs_",
+    "created_at": "2024-09-02T10:11:54.907Z",
+    "group_name": [
+      "Palmereap Scans"
+    ],
+    "updated_at": "2024-09-02T10:11:54.944Z",
+    "up_count": 0,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": null,
+    "publish_at": "2024-09-02T10:11:55.000Z",
+    "md_comics": {
+      "id": 26751,
+      "hid": "TbCycNYU",
+      "title": "Martial Legacy",
+      "slug": "00-martial-legacy",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 212,
+      "final_chapter": null,
+      "created_at": "2019-02-16T05:54:34.606Z",
+      "genres": [
+        255,
+        244,
+        274,
+        257,
+        252,
+        281,
+        272,
+        282
+      ],
+      "demographic": 3,
+      "md_covers": [
+        {
+          "w": 420,
+          "h": 560,
+          "b2key": "joeym.png"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/joeym-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442742,
+    "status": "OK",
+    "chap": "207",
+    "vol": null,
+    "last_at": "2024-09-02T09:06:58.000Z",
+    "hid": "5qzlLxLQ",
+    "created_at": "2024-09-02T09:06:58.094Z",
+    "group_name": [
+      "Dango Scan"
+    ],
+    "updated_at": "2024-09-02T09:06:58.125Z",
+    "up_count": 0,
+    "lang": "pt-br",
+    "down_count": 0,
+    "external_type": null,
+    "publish_at": "2024-09-02T09:06:58.000Z",
+    "md_comics": {
+      "id": 46823,
+      "hid": "yS1oYwZX",
+      "title": "Baili Jin Among Mortals",
+      "slug": "00-baili-jin-among-mortals",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 161.5,
+      "final_chapter": null,
+      "created_at": "2020-10-12T07:54:06.170Z",
+      "genres": [
+        274,
+        264,
+        247,
+        276,
+        252,
+        281
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 1591,
+          "h": 2121,
+          "b2key": "d1j.jpg"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/d1j-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442738,
+    "status": "OK",
+    "chap": "19",
+    "vol": null,
+    "last_at": "2024-09-02T08:58:47.000Z",
+    "hid": "msGlIXPI",
+    "created_at": "2024-09-02T08:58:46.506Z",
+    "group_name": [
+      "(low quality)"
+    ],
+    "updated_at": "2024-09-02T11:35:00.827Z",
+    "up_count": 8,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "mangahub",
+    "publish_at": "2024-09-02T08:58:45.000Z",
+    "md_comics": {
+      "id": 89598,
+      "hid": "VLUwa4Wp",
+      "title": "Aura Recovery: I Get a New Skill Everyday",
+      "slug": "aura-recovery-i-get-a-new-skill-everyday",
+      "content_rating": "suggestive",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 19,
+      "final_chapter": null,
+      "created_at": "2023-08-01T18:36:56.841Z",
+      "genres": [
+        244,
+        274,
+        254,
+        250,
+        252,
+        279,
+        282,
+        251
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 600,
+          "h": 800,
+          "b2key": "xGRoj8.png"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/xGRoj8-s.jpg"
+    },
+    "count": 2
+  },
+  {
+    "id": 3442736,
+    "status": "OK",
+    "chap": "623",
+    "vol": null,
+    "last_at": "2024-09-02T08:58:35.000Z",
+    "hid": "OwKDoQNQ",
+    "created_at": "2024-09-02T08:58:35.156Z",
+    "group_name": [
+      "Official (low quality)"
+    ],
+    "updated_at": "2024-09-02T11:41:49.720Z",
+    "up_count": 2,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "novelmic",
+    "publish_at": "2024-09-02T08:58:32.000Z",
+    "md_comics": {
+      "id": 80636,
+      "hid": "hUWA7QVd",
+      "title": "God of Martial Arts (Official)",
+      "slug": "god-of-martial-arts-official",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 623,
+      "final_chapter": null,
+      "created_at": "2023-03-12T06:12:42.640Z",
+      "genres": [
+        244,
+        245,
+        254,
+        257,
+        274
+      ],
+      "demographic": 3,
+      "md_covers": [
+        {
+          "w": 600,
+          "h": 800,
+          "b2key": "Gu4vvJvxR-JXf.jpeg"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/Gu4vvJvxR-JXf-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442735,
+    "status": "OK",
+    "chap": "462",
+    "vol": null,
+    "last_at": "2024-09-02T08:58:21.000Z",
+    "hid": "wk50lNbH",
+    "created_at": "2024-09-02T08:58:20.682Z",
+    "group_name": [
+      "Official (low quality)"
+    ],
+    "updated_at": "2024-09-02T11:41:41.750Z",
+    "up_count": 0,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "novelmic",
+    "publish_at": "2024-09-02T08:58:16.000Z",
+    "md_comics": {
+      "id": 32956,
+      "hid": "Hz4fJv4Z",
+      "title": "My Girlfriend Is a Zombie",
+      "slug": "00-my-girlfriend-is-a-zombie",
+      "content_rating": "suggestive",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 462,
+      "final_chapter": null,
+      "created_at": "2019-06-13T02:35:07.817Z",
+      "genres": [
+        244,
+        274,
+        264,
+        319,
+        309,
+        254,
+        256,
+        281,
+        279,
+        282,
+        251
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 608,
+          "h": 810,
+          "b2key": "WzB38.png"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/WzB38-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442734,
+    "status": "OK",
+    "chap": "94",
+    "vol": null,
+    "last_at": "2024-09-02T08:58:08.000Z",
+    "hid": "gWPLgW3X",
+    "created_at": "2024-09-02T08:58:08.037Z",
+    "group_name": [
+      "Official"
+    ],
+    "updated_at": "2024-09-02T11:41:35.628Z",
+    "up_count": 0,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "novelmic",
+    "publish_at": "2024-09-02T08:58:00.000Z",
+    "md_comics": {
+      "id": 84997,
+      "hid": "lI1QOCKt",
+      "title": "Triplets: Mr. Li's Sweetheart",
+      "slug": "triplets-mr-li-s-sweetheart",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 94,
+      "final_chapter": null,
+      "created_at": "2023-05-21T11:01:46.080Z",
+      "genres": [
+        274,
+        264,
+        250,
+        281,
+        282
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 720,
+          "h": 960,
+          "b2key": "Z8nrwj.jpg"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/Z8nrwj-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442733,
+    "status": "OK",
+    "chap": "161",
+    "vol": null,
+    "last_at": "2024-09-02T08:57:43.000Z",
+    "hid": "Yfzuwi5X",
+    "created_at": "2024-09-02T08:57:42.948Z",
+    "group_name": [
+      "Official (low quality)"
+    ],
+    "updated_at": "2024-09-02T11:41:22.537Z",
+    "up_count": 1,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "novelmic",
+    "publish_at": "2024-09-02T08:57:29.000Z",
+    "md_comics": {
+      "id": 74758,
+      "hid": "jOPv23mC",
+      "title": "Young Master Is Too Righteous",
+      "slug": "young-master-is-too-righteous",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 4,
+      "translation_completed": false,
+      "last_chapter": 161,
+      "final_chapter": null,
+      "created_at": "2022-10-03T15:18:47.135Z",
+      "genres": [
+        315,
+        255,
+        244,
+        257,
+        250,
+        252,
+        322,
+        281,
+        282
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 630,
+          "h": 840,
+          "b2key": "dJBNl.jpg"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/dJBNl-s.jpg"
+    },
+    "count": 2
+  },
+  {
+    "id": 3442730,
+    "status": "OK",
+    "chap": "484",
+    "vol": null,
+    "last_at": "2024-09-02T08:56:16.000Z",
+    "hid": "E99C0u3N",
+    "created_at": "2024-09-02T08:56:16.452Z",
+    "group_name": [
+      "Official"
+    ],
+    "updated_at": "2024-09-02T11:41:04.702Z",
+    "up_count": 0,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "novelmic",
+    "publish_at": "2024-09-02T08:56:01.000Z",
+    "md_comics": {
+      "id": 47507,
+      "hid": "ojcEHTTl",
+      "title": "Perfect Secret Love: The Bad New Wife Is a Little Sweet",
+      "slug": "00-perfect-secret-love-the-bad-new-wife-is-a-little-sweet",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 484,
+      "final_chapter": null,
+      "created_at": "2020-10-12T08:05:46.537Z",
+      "genres": [
+        310,
+        274,
+        247,
+        250,
+        282
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 420,
+          "h": 560,
+          "b2key": "7XW2J.png"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/7XW2J-s.jpg"
+    },
+    "count": 2
+  },
+  {
+    "id": 3442501,
+    "status": "OK",
+    "chap": "450",
+    "vol": null,
+    "last_at": "2024-09-02T06:16:03.000Z",
+    "hid": "4F8NxiQy",
+    "created_at": "2024-09-02T06:16:02.961Z",
+    "group_name": [
+      "manhuaplus"
+    ],
+    "updated_at": "2024-09-02T11:44:27.329Z",
+    "up_count": 9,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "manhuaplus",
+    "publish_at": "2024-09-02T08:46:02.000Z",
+    "md_comics": {
+      "id": 10672,
+      "hid": "TXlW_6Wf",
+      "title": "Fights Breaking Through The Heavens",
+      "slug": "00-fights-breaking-through-the-heavens",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 450,
+      "final_chapter": null,
+      "created_at": "2019-02-15T08:49:07.885Z",
+      "genres": [
+        244,
+        274,
+        264,
+        247,
+        257,
+        245,
+        254,
+        293,
+        250,
+        252,
+        281,
+        279,
+        282
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 612,
+          "h": 874,
+          "b2key": "Qwqka.png"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/Qwqka-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442499,
+    "status": "OK",
+    "chap": "413",
+    "vol": null,
+    "last_at": "2024-09-02T06:12:37.000Z",
+    "hid": "JMndO7aw",
+    "created_at": "2024-09-02T06:12:36.537Z",
+    "group_name": [
+      "FireScans"
+    ],
+    "updated_at": "2024-09-02T11:34:06.439Z",
+    "up_count": 3,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "firescans",
+    "publish_at": "2024-09-02T08:42:36.000Z",
+    "md_comics": {
+      "id": 33774,
+      "hid": "LLUvClxg",
+      "title": "The Demon King Who Lost His Job",
+      "slug": "the-demon-king-who-lost-his-job-jyfkltum",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 413,
+      "final_chapter": null,
+      "created_at": "2019-07-23T08:42:00.665Z",
+      "genres": [
+        244,
+        297,
+        274,
+        264,
+        247,
+        252
+      ],
+      "demographic": 1,
+      "md_covers": [
+        {
+          "w": 720,
+          "h": 960,
+          "b2key": "YBqrO.jpg"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/YBqrO-s.jpg"
+    },
+    "count": 3
+  },
+  {
+    "id": 3442687,
+    "status": "OK",
+    "chap": "127",
+    "vol": null,
+    "last_at": "2024-09-02T08:35:06.000Z",
+    "hid": "5Dhs0jmY",
+    "created_at": "2024-09-02T08:35:06.360Z",
+    "group_name": [
+      "Official"
+    ],
+    "updated_at": "2024-09-02T11:20:20.298Z",
+    "up_count": 8,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "summanga",
+    "publish_at": "2024-09-02T08:34:58.000Z",
+    "md_comics": {
+      "id": 65311,
+      "hid": "MGs7iSji",
+      "title": "Great Zhou Immortal Officials",
+      "slug": "great-zhou-immortal-officials",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 127,
+      "final_chapter": null,
+      "created_at": "2021-10-28T19:39:07.479Z",
+      "genres": [
+        244,
+        300,
+        264,
+        247,
+        257,
+        245,
+        254,
+        252,
+        281,
+        282
+      ],
+      "demographic": 1,
+      "md_covers": [
+        {
+          "w": 630,
+          "h": 840,
+          "b2key": "zlYQy.jpg"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/zlYQy-s.jpg"
+    },
+    "count": 2
+  },
+  {
+    "id": 3442564,
+    "status": "OK",
+    "chap": "34",
+    "vol": null,
+    "last_at": "2024-09-02T07:34:22.000Z",
+    "hid": "400Jg2WW",
+    "created_at": "2024-09-02T07:34:21.918Z",
+    "group_name": [
+      "Fairy Tale Scans"
+    ],
+    "updated_at": "2024-09-02T11:37:46.895Z",
+    "up_count": 3,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": null,
+    "publish_at": "2024-09-02T07:34:22.000Z",
+    "md_comics": {
+      "id": 103425,
+      "hid": "FDy2oXi9",
+      "title": "Rejoice in Your Enemies",
+      "slug": "rejoice-in-your-enemies",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 34,
+      "final_chapter": null,
+      "created_at": "2024-04-05T06:49:24.860Z",
+      "genres": [
+        274,
+        264,
+        275,
+        265,
+        281,
+        269,
+        282
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 1280,
+          "h": 2025,
+          "b2key": "g6rqJR.png"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/g6rqJR-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442523,
+    "status": "OK",
+    "chap": "95",
+    "vol": "7",
+    "last_at": "2024-09-02T07:20:50.000Z",
+    "hid": "3d8uHBvi",
+    "created_at": "2024-09-02T07:20:49.857Z",
+    "group_name": [],
+    "updated_at": "2024-09-02T07:20:49.884Z",
+    "up_count": 0,
+    "lang": "fr",
+    "down_count": 0,
+    "external_type": null,
+    "publish_at": "2024-09-02T07:20:50.000Z",
+    "md_comics": {
+      "id": 65749,
+      "hid": "Xdro1FuO",
+      "title": "Please Bully Me, Miss Villainess!",
+      "slug": "00-please-bully-me-miss-villainess",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 95,
+      "final_chapter": null,
+      "created_at": "2021-11-16T00:17:55.487Z",
+      "genres": [
+        310,
+        274,
+        264,
+        303,
+        276,
+        278,
+        265,
+        252,
+        322,
+        301,
+        281,
+        279,
+        282
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 1447,
+          "h": 2047,
+          "b2key": "D4pkKQ.png"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/D4pkKQ-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442512,
+    "status": "OK",
+    "chap": "20",
+    "vol": null,
+    "last_at": null,
+    "hid": "_WBspjJQ",
+    "created_at": "2024-09-02T06:47:00.140Z",
+    "group_name": [],
+    "updated_at": "2024-09-02T06:47:00.172Z",
+    "up_count": 0,
+    "lang": "fr",
+    "down_count": 0,
+    "external_type": null,
+    "publish_at": "2024-09-02T06:47:00.000Z",
+    "md_comics": {
+      "id": 67990,
+      "hid": "zdsbT3M6",
+      "title": "My Wife Is From a Thousand Years Ago",
+      "slug": "my-wife-is-from-a-thousand-years-ago",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 307,
+      "final_chapter": null,
+      "created_at": "2022-03-01T05:54:03.459Z",
+      "genres": [
+        315,
+        274,
+        264,
+        247,
+        257,
+        250,
+        252,
+        269,
+        272,
+        282
+      ],
+      "demographic": 1,
+      "md_covers": [
+        {
+          "w": 720,
+          "h": 960,
+          "b2key": "aa1bM2.png"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/aa1bM2-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442490,
+    "status": "OK",
+    "chap": "417",
+    "vol": null,
+    "last_at": "2024-09-02T05:58:59.000Z",
+    "hid": "Y0___tzP",
+    "created_at": "2024-09-02T05:58:58.737Z",
+    "group_name": [
+      "Silver Raven"
+    ],
+    "updated_at": "2024-09-02T05:58:58.792Z",
+    "up_count": 0,
+    "lang": "uk",
+    "down_count": 0,
+    "external_type": null,
+    "publish_at": "2024-09-02T05:58:59.000Z",
+    "md_comics": {
+      "id": 30030,
+      "hid": "LPGLvz9A",
+      "title": "Release That Witch",
+      "slug": "00-release-that-witch",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 583,
+      "final_chapter": null,
+      "created_at": "2019-02-16T07:39:25.279Z",
+      "genres": [
+        244,
+        297,
+        274,
+        264,
+        245,
+        303,
+        254,
+        304,
+        278,
+        250,
+        252,
+        281,
+        272,
+        279,
+        282
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 720,
+          "h": 960,
+          "b2key": "E8ODg.jpg"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/E8ODg-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442487,
+    "status": "OK",
+    "chap": "329",
+    "vol": null,
+    "last_at": null,
+    "hid": "WQxpwd2j",
+    "created_at": "2024-09-02T05:43:11.207Z",
+    "group_name": [
+      "Official"
+    ],
+    "updated_at": "2024-09-02T11:20:48.342Z",
+    "up_count": 0,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "summanga",
+    "publish_at": "2024-09-02T05:42:44.000Z",
+    "md_comics": {
+      "id": 69224,
+      "hid": "5mdyj_ho",
+      "title": "Dragon Master",
+      "slug": "dragon-master",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 330,
+      "final_chapter": null,
+      "created_at": "2022-03-29T04:19:12.790Z",
+      "genres": [
+        252,
+        257,
+        265,
+        274
+      ],
+      "demographic": 1,
+      "md_covers": [
+        {
+          "w": 400,
+          "h": 550,
+          "b2key": "RgHBcdIhYDL6t.jpeg"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/RgHBcdIhYDL6t-s.jpg"
+    },
+    "count": 2
+  },
+  {
+    "id": 3442484,
+    "status": "OK",
+    "chap": "47",
+    "vol": null,
+    "last_at": "2024-09-02T05:42:09.000Z",
+    "hid": "bGOreF6f",
+    "created_at": "2024-09-02T05:42:08.692Z",
+    "group_name": [
+      "(low quality)"
+    ],
+    "updated_at": "2024-09-02T11:20:28.883Z",
+    "up_count": 16,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "summanga",
+    "publish_at": "2024-09-02T05:41:50.000Z",
+    "md_comics": {
+      "id": 105232,
+      "hid": "C8NJL0TG",
+      "title": "Ancient God's Chosen Warriors",
+      "slug": "ancient-god-s-chosen-warriors",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 47,
+      "final_chapter": null,
+      "created_at": "2024-05-25T16:38:32.177Z",
+      "genres": [
+        244,
+        245,
+        250,
+        252,
+        3,
+        272,
+        274
+      ],
+      "demographic": 1,
+      "md_covers": [
+        {
+          "w": 600,
+          "h": 800,
+          "b2key": "Z8nMy5.jpeg"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/Z8nMy5-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442483,
+    "status": "OK",
+    "chap": "6",
+    "vol": null,
+    "last_at": "2024-09-02T05:34:36.000Z",
+    "hid": "yHDyBS9Y",
+    "created_at": "2024-09-02T05:34:36.437Z",
+    "group_name": [
+      "goon squad",
+      "RosmontisWorshipper"
+    ],
+    "updated_at": "2024-09-02T11:25:16.644Z",
+    "up_count": 18,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": null,
+    "publish_at": "2024-09-02T05:34:36.000Z",
+    "md_comics": {
+      "id": 106756,
+      "hid": "tnxN68rr",
+      "title": "My Ex-Girlfriend Became My Boss",
+      "slug": "my-ex-girlfriend-became-my-boss",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 6,
+      "final_chapter": null,
+      "created_at": "2024-07-08T07:08:15.868Z",
+      "genres": [
+        274,
+        264,
+        307,
+        276,
+        252,
+        282
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 3000,
+          "h": 4000,
+          "b2key": "oa6vmk.png"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/oa6vmk-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442451,
+    "status": "OK",
+    "chap": "25",
+    "vol": null,
+    "last_at": "2024-09-02T04:50:24.000Z",
+    "hid": "PACeTzIv",
+    "created_at": "2024-09-02T04:50:24.473Z",
+    "group_name": [
+      "L1v's Translations"
+    ],
+    "updated_at": "2024-09-02T11:25:36.897Z",
+    "up_count": 6,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": null,
+    "publish_at": "2024-09-02T04:50:24.000Z",
+    "md_comics": {
+      "id": 107688,
+      "hid": "jBnpUsgL",
+      "title": "Miss Wolf and Her Fox Sister",
+      "slug": "miss-wolf-and-her-fox-sister",
+      "content_rating": "suggestive",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 25,
+      "final_chapter": null,
+      "created_at": "2024-07-31T01:23:16.152Z",
+      "genres": [
+        292,
+        244,
+        263,
+        295,
+        274,
+        264,
+        276,
+        250,
+        281,
+        261,
+        282,
+        251
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 310,
+          "h": 413,
+          "b2key": "jx3nzk.png"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/jx3nzk-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442442,
+    "status": "OK",
+    "chap": "333",
+    "vol": null,
+    "last_at": "2024-09-02T04:40:05.000Z",
+    "hid": "MtzRNrv_",
+    "created_at": "2024-09-02T04:40:04.996Z",
+    "group_name": [
+      "(low quality)"
+    ],
+    "updated_at": "2024-09-02T11:28:03.998Z",
+    "up_count": 2,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "mangahub",
+    "publish_at": "2024-09-02T04:40:01.000Z",
+    "md_comics": {
+      "id": 35393,
+      "hid": "DrodERKY",
+      "title": "Strongest Leveling",
+      "slug": "00-the-great-level-up",
+      "content_rating": "safe",
+      "country": "cn",
+      "status": 1,
+      "translation_completed": false,
+      "last_chapter": 333,
+      "final_chapter": null,
+      "created_at": "2019-09-17T18:29:09.461Z",
+      "genres": [
+        245,
+        247,
+        257,
+        274,
+        278,
+        281,
+        282
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 420,
+          "h": 560,
+          "b2key": "vGxab.jpg"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/vGxab-s.jpg"
+    },
+    "count": 1
+  },
+  {
+    "id": 3442394,
+    "status": "OK",
+    "chap": "125",
+    "vol": null,
+    "last_at": "2024-09-02T04:23:44.000Z",
+    "hid": "e0QcMX6O",
+    "created_at": "2024-09-02T04:23:44.428Z",
+    "group_name": [
+      "Official (low quality)"
+    ],
+    "updated_at": "2024-09-02T04:23:44.450Z",
+    "up_count": 0,
+    "lang": "en",
+    "down_count": 0,
+    "external_type": "nightcomic",
+    "publish_at": "2024-09-02T04:23:35.000Z",
+    "md_comics": {
+      "id": 29690,
+      "hid": "mZoleFS7",
+      "title": "Save a Female Assassin",
+      "slug": "00-save-a-female-assassin",
+      "content_rating": "suggestive",
+      "country": "cn",
+      "status": 3,
+      "translation_completed": false,
+      "last_chapter": 125,
+      "final_chapter": "127",
+      "created_at": "2019-02-16T07:30:33.179Z",
+      "genres": [
+        244,
+        274,
+        264,
+        257,
+        245,
+        250,
+        252,
+        281,
+        272,
+        282,
+        251
+      ],
+      "demographic": null,
+      "md_covers": [
+        {
+          "w": 420,
+          "h": 560,
+          "b2key": "DG87Y.jpg"
+        }
+      ],
+      "cover_url": "https://meo.comick.pictures/DG87Y-s.jpg"
+    },
+    "count": 63
+  }
+]
