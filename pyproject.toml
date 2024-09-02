@@ -6,6 +6,8 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "typer>=0.12.5",
+    "pydantic>=2.8.2",
+    "fastapi>=0.112.2",
 ]
 
 [build-system]
