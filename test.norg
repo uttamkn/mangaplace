@@ -1,57 +1,54 @@
-* testing if i can get the api.comick.fun working or not
+** testing if i can get the api.comick.fun working or not
 ** this is to get trending or whatever based on categories
-** wget --method=GET \
-  'https://api.comick.io/top?gender=1&day=180&type=trending&comic_types=manhua&accept_mature_content=false' \
-  --header='Accept: application/json' \
-  --header='User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
+*** wget --method=GET \
+    'https://api.comick.io/top?gender=1&day=180&type=trending&comic_types=manhua&accept_mature_content=false' \
+    --header='Accept: application/json' \
+    --header='User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
 
 ** this did not work
-** wget --method=GET \
-  'https://api.comick.io/category/' \
-  --header 'accept: application/json' \
-  --header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
-
-  wget --method=GET \
-  'https://api.comick.io/chapter/?page=1&gender=1&order=new&tachiyomi=true&type=manhua&accept_erotic_content=false' \
-  --header 'accept: application/json' \
-  --header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
-
-  curl -X GET \
-  'https://api.comick.io/chapter/%22329OLYs_%22/?tachiyomi=true' \
-  -H 'accept: application/json' \
-  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36' \
-  -o shit.json
-
-
-  curl -X GET \
-  'https://api.comick.io/chapter/?page=1&gender=1&order=new&tachiyomi=true&type=manhua&accept_erotic_content=false' \
-  -H 'accept: application/json' \
-  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36' \
-  -o output.json
-
-  curl -X 'GET' \
-  'https://api.comick.io/comic/%22329OLYs_%22/chapters?limit=60&page=1&lang=en&chap=%22212%22' \
-  -H 'accept: application/json' \
-  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36' \
-  -o shit.json
+*** wget --method=GET \
+    'https://api.comick.io/category/' \
+    --header 'accept: application/json' \
+    --header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
 
 
 ** this is to get chapter images
-** curl -X 'GET' \
-  'https://api.comick.io/chapter/%22329OLYs_%22/get_images' \
-  -H 'accept: application/json' \
-  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36' \
-  -o image
+*** curl -X 'GET' \
+    'https://api.comick.io/chapter/%22mDzXEbd3%22/get_images'\
+    -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'\
+    -o image
 
 ** this is also another one just for images
 ** curl -X 'GET' \
-  'https://api.comick.io/chapter/%225qzlLxLQ%22/get_images' \
+   'https://api.comick.io/chapter/%225qzlLxLQ%22/get_images' \
    -H 'accept: application/json' \
    -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36' \
    -o image
 
 ** this is for searching the comics
-   *** curl -X GET \
-       'https://api.comick.io/v1.0/search/?type=comic&page=1&limit=15&status=2&tachiyomi=true&completed=true&sort=rating&exclude-mylist=false&showall=false&q=naruto&t=true' \
-       -H 'accept: application/json' \
-       -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
+*** curl -X GET \
+    'https://api.comick.io/v1.0/search/?type=comic&page=1&limit=15&status=2&tachiyomi=true&completed=true&sort=rating&exclude-mylist=false&showall=false&q=naruto&t=true' \
+    -H 'accept: application/json' \
+    -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
+
+** this is to get the manga info
+*** curl -X 'GET' \
+    'https://api.comick.io/v1.0/search/?page=1&limit=15&country=us&minimum=20&status=2&tachiyomi=true&exclude-mylist=false&showall=false&q=bleach&t=true' \
+    -H 'accept: application/json' \
+    -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36' \
+    -o bleach.json
+
+** this is to get chapters of bleach
+*** curl -X 'GET' \
+    'https://api.comick.io/comic/mDzXEbd3/chapters?limit=60&page=1&lang=en&chap=1' \
+    -H 'accept: application/json' \
+    -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36' \
+    -o bc.json
+
+** to get chapters
+*** curl -X GET 'api.comick.fun/comic/71gMdovF/chapters?lang=en&limit=99999&tachiyomi=true' \
+    -H 'accept: application/json' \
+    -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36' \
+    -o bc.json
+
+
