@@ -1,9 +1,61 @@
 import asyncio
 import logging
+from datetime import datetime
+from typing import List, Optional
 
 import aiohttp
-import uvicorn
+import json
 from fastapi import FastAPI, HTTPException, Query
+from pydantic import BaseModel, Field, TypeAdapter
+
+
+class MuComics(BaseModel):
+    year: Optional[int] = None
+
+class MdTitle(BaseModel):
+    title: str
+
+class MdCover(BaseModel):
+    w: int
+    h: int
+    b2key: str
+
+class MangaResult(BaseModel):
+    id: int
+    hid: str
+    slug: str
+    title: str
+    country: str
+    rating: str
+    bayesian_rating: str
+    rating_count: int
+    follow_count: int
+    desc: Optional[str] = None
+    status: int
+    last_chapter: Optional[int] = None
+    translation_completed: Optional[bool] = None
+    view_count: int
+    content_rating: str
+    demographic: Optional[int] = None
+    uploaded_at: Optional[datetime] = None
+    genres: List[int]
+    created_at: datetime
+    user_follow_count: int
+    year: Optional[int] = None
+    mu_comics: Optional[MuComics] = None
+    md_titles: List[MdTitle]
+    md_covers: List[MdCover]
+    highlight: Optional[str] = None
+    cover_url: str
+
+class SearchResults(BaseModel):
+    results: List[MangaResult]
+
+# Usage example:
+# from pydantic import parse_obj_as
+#
+# # Assuming 'data' is your JSON data
+# search_results = parse_obj_as(SearchResults, data)
 
 app = FastAPI()
 logging.basicConfig(level=logging.INFO)
@@ -41,15 +93,17 @@ async def fetch_comics(query: str):
             logging.error(f"Request failed: {str(e)}")
             raise HTTPException(status_code=500, detail=f"Failed to make request: {str(e)}")
 
-@app.get("/comics")
-async def search_comics(query: str = Query(..., description="Search query for comics")):
+async def search_comics(query: str):
     try:
         response = await fetch_comics(query)
-        # Limit to top 10 results
+        data = json.loads(response)
+        adapter = TypeAdapter(MangaResult)
+        manga_results = adapter.validate_json(data, many=True)
+        titles = [manga_result.title for manga_result in manga_results]
         top_10 = response[:10] if isinstance(response, list) else response
         return {"results": top_10}
     except HTTPException as e:
         return {"error": str(e)}
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+def get_comic_hids(comics: MangaResult) -> str:
+    return comics.hid
