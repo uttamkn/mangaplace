@@ -1,7 +1,6 @@
-import asyncio
 import logging
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import aiohttp
 import json
@@ -26,13 +25,13 @@ class MangaResult(BaseModel):
     slug: str
     title: str
     country: str
-    rating: str
-    bayesian_rating: str
+    rating: Optional[str] = None
+    bayesian_rating: Optional[str] = None
     rating_count: int
     follow_count: int
     desc: Optional[str] = None
     status: int
-    last_chapter: Optional[int] = None
+    last_chapter: Optional[Union[int, float]] = None
     translation_completed: Optional[bool] = None
     view_count: int
     content_rating: str
@@ -48,6 +47,10 @@ class MangaResult(BaseModel):
     highlight: Optional[str] = None
     cover_url: str
 
+class SelectNameOfManga(BaseModel):
+    hid: str
+    title: str
+
 class SearchResults(BaseModel):
     results: List[MangaResult]
 
@@ -57,10 +60,7 @@ class SearchResults(BaseModel):
 # # Assuming 'data' is your JSON data
 # search_results = parse_obj_as(SearchResults, data)
 
-app = FastAPI()
-logging.basicConfig(level=logging.INFO)
-
-async def fetch_comics(query: str):
+async def fetch_comics(query: str) -> List[MangaResult]:
     url = f"https://api.comick.fun/v1.0/search?q={query}&tachiyomi=true"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
@@ -75,12 +75,10 @@ async def fetch_comics(query: str):
     async with aiohttp.ClientSession() as session:
         try:
             async with session.get(url, headers=headers) as response:
-                logging.info(f"Request URL: {url}")
-                logging.info(f"Request headers: {headers}")
-                logging.info(f"Response status: {response.status}")
-                logging.info(f"Response headers: {response.headers}")
                 if response.status == 200:
-                    return await response.json()
+                    data =  await response.json()
+                    search_results = TypeAdapter(SearchResults).validate_python({"results": data})
+                    return search_results.results
                 elif response.status == 403:
                     error_text = await response.text()
                     logging.error(f"403 Forbidden error. Response body: {error_text}")
@@ -93,17 +91,8 @@ async def fetch_comics(query: str):
             logging.error(f"Request failed: {str(e)}")
             raise HTTPException(status_code=500, detail=f"Failed to make request: {str(e)}")
 
-async def search_comics(query: str):
-    try:
-        response = await fetch_comics(query)
-        data = json.loads(response)
-        adapter = TypeAdapter(MangaResult)
-        manga_results = adapter.validate_json(data, many=True)
-        titles = [manga_result.title for manga_result in manga_results]
-        top_10 = response[:10] if isinstance(response, list) else response
-        return {"results": top_10}
-    except HTTPException as e:
-        return {"error": str(e)}
-
-def get_comic_hids(comics: MangaResult) -> str:
-    return comics.hid
+async def get_select_name(mangas: List[MangaResult]) -> SelectNameOfManga:
+    res: List[SelectNameOfManga] = []
+    for manga in mangas:
+        res.append(SelectNameOfManga(hid=manga.hid, title=manga.title))
+    return res
