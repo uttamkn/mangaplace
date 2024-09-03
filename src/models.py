@@ -47,7 +47,7 @@ class MangaResult(BaseModel):
     cover_url: str
 
 
-class SelectNameOfManga(BaseModel):
+class MangaTitle(BaseModel):
     hid: str
     title: str
 

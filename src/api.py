@@ -4,9 +4,9 @@ from io import BytesIO
 from typing import List
 
 import aiohttp
-from fastapi import HTTPException, Query
+from fastapi import HTTPException
 from PIL import Image
-from pydantic import BaseModel, Field, TypeAdapter
+from pydantic import TypeAdapter
 
 from models import (
     Chapter,
@@ -15,11 +15,11 @@ from models import (
     ListImages,
     MangaResult,
     SearchResults,
-    SelectNameOfManga,
+    MangaTitle,
 )
 
 
-async def fetch_comics(query: str) -> List[MangaResult]:
+async def search_manga(query: str) -> List[MangaResult]:
     url = f"https://api.comick.fun/v1.0/search?q={query}&tachiyomi=true"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
@@ -63,14 +63,14 @@ async def fetch_comics(query: str) -> List[MangaResult]:
             )
 
 
-async def get_select_name(mangas: List[MangaResult]) -> SelectNameOfManga:
-    res: List[SelectNameOfManga] = []
+async def get_title_list(mangas: List[MangaResult]) -> List[MangaTitle]:
+    res: List[MangaTitle] = []
     for manga in mangas:
-        res.append(SelectNameOfManga(hid=manga.hid, title=manga.title))
+        res.append(MangaTitle(hid=manga.hid, title=manga.title))
     return res
 
 
-async def fetch_chapters(hid: str) -> List[Chapter]:
+async def get_chapter_list(hid: str) -> List[Chapter]:
     url = f"https://api.comick.fun/comic/{hid}/chapters?lang=en&limit=99999&tachiyomi=true"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
@@ -108,7 +108,7 @@ async def fetch_chapters(hid: str) -> List[Chapter]:
             )
 
 
-async def fetch_images(hid: str) -> List[Images]:
+async def get_image_list(hid: str) -> List[Images]:
     url = f"https://api.comick.fun/chapter/{hid}/get_images?tachiyomi=true"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",

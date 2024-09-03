@@ -3,10 +3,10 @@ import asyncio
 from api import (
     MangaResult,
     fetch_and_combine_images,
-    fetch_chapters,
-    fetch_comics,
-    fetch_images,
-    get_select_name,
+    search_manga,
+    get_image_list,
+    get_title_list,
+    get_chapter_list
 )
 
 
@@ -14,19 +14,19 @@ async def main():
     print("hello world")
     print("give a anime name so that i can get you the pdf")
     anime_name = input("anime name: ")
-    res = await fetch_comics(anime_name)
-    sel_name = await get_select_name(res)
+    res = await search_manga(anime_name)
+    title_list = await get_title_list(res)
     i = 0
-    for result in sel_name:
+    for result in title_list:
         print(f"{i+1} {result.title} - {result.hid}")
         i += 1
     print("give the id no of the anime you want chapters for")
-    id = int(input("anime id: "))
-    print(f"you have chosen {sel_name[id-1].title}")
-    hid = sel_name[id - 1].hid
+    manga_id = int(input("anime id: "))
+    print(f"you have chosen {title_list[manga_id - 1].title}")
+    hid = title_list[manga_id - 1].hid
     print(hid)
     print("the chapters available for that are as follows")
-    chapters = await fetch_chapters(hid)
+    chapters = await get_chapter_list(hid)
     i = 0
     for chapter in chapters:
         print(f"{i+1} {chapter.title}")
@@ -35,7 +35,7 @@ async def main():
     chapid = int(input("chapter id: "))
     chapter_hid = chapters[chapid - 1].hid
     print(chapter_hid)
-    imagesList = await fetch_images(chapter_hid)
+    imagesList = await get_image_list(chapter_hid)
     image_name = []
     for image in imagesList:
         print(image.b2key)
