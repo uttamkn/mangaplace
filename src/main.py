@@ -1,7 +1,6 @@
 import asyncio
 
 from api import (
-    MangaResult,
     fetch_and_combine_images,
     search_manga,
     get_image_list,
@@ -23,6 +22,7 @@ async def main():
     print("give the id no of the anime you want chapters for")
     manga_id = int(input("anime id: "))
     print(f"you have chosen {title_list[manga_id - 1].title}")
+    print(f"description: {title_list[manga_id - 1].desc}")
     hid = title_list[manga_id - 1].hid
     print(hid)
     print("the chapters available for that are as follows")

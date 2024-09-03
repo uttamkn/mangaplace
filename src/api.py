@@ -15,7 +15,7 @@ from models import (
     ListImages,
     MangaResult,
     SearchResults,
-    MangaTitle,
+    MangaInfo,
 )
 
 
@@ -63,12 +63,11 @@ async def search_manga(query: str) -> List[MangaResult]:
             )
 
 
-async def get_title_list(mangas: List[MangaResult]) -> List[MangaTitle]:
-    res: List[MangaTitle] = []
+async def get_title_list(mangas: List[MangaResult]) -> List[MangaInfo]:
+    res: List[MangaInfo] = []
     for manga in mangas:
-        res.append(MangaTitle(hid=manga.hid, title=manga.title))
+        res.append(MangaInfo(hid=manga.hid, title=manga.title, desc=manga.desc))
     return res
-
 
 async def get_chapter_list(hid: str) -> List[Chapter]:
     url = f"https://api.comick.fun/comic/{hid}/chapters?lang=en&limit=99999&tachiyomi=true"
@@ -106,7 +105,6 @@ async def get_chapter_list(hid: str) -> List[Chapter]:
             raise HTTPException(
                 status_code=500, detail=f"Failed to make request: {str(e)}"
             )
-
 
 async def get_image_list(hid: str) -> List[Images]:
     url = f"https://api.comick.fun/chapter/{hid}/get_images?tachiyomi=true"

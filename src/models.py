@@ -47,9 +47,10 @@ class MangaResult(BaseModel):
     cover_url: str
 
 
-class MangaTitle(BaseModel):
+class MangaInfo(BaseModel):
     hid: str
     title: str
+    desc: str
 
 
 class SearchResults(BaseModel):
