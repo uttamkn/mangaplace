@@ -62,12 +62,12 @@ async def search_manga(query: str) -> List[MangaResult]:
                 status_code=500, detail=f"Failed to make request: {str(e)}"
             )
 
-
-async def get_title_list(mangas: List[MangaResult]) -> List[MangaInfo]:
-    res: List[MangaInfo] = []
-    for manga in mangas:
-        res.append(MangaInfo(hid=manga.hid, title=manga.title, desc=manga.desc))
-    return res
+# not using this
+# async def get_title_list(mangas: List[MangaResult]) -> List[MangaInfo]:
+#     res: List[MangaInfo] = []
+#     for manga in mangas:
+#         res.append(MangaInfo(hid=manga.hid, title=manga.title, desc=manga.desc))
+#     return res
 
 async def get_chapter_list(hid: str) -> List[Chapter]:
     url = f"https://api.comick.fun/comic/{hid}/chapters?lang=en&limit=99999&tachiyomi=true"

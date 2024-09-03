@@ -217,7 +217,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.112.2" },
     { name = "pillow", specifier = ">=10.4.0" },
     { name = "pydantic", specifier = ">=2.8.2" },
-    { name = "pylint" },
+    { name = "pylint", specifier = ">=3.2.7" },
     { name = "typer", specifier = ">=0.12.5" },
 ]
 

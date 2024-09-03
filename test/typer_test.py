@@ -2,7 +2,6 @@ import typer
 import asyncio
 import subprocess
 from rich.console import Console
-from rich.table import Table
 from api import search_manga, get_chapter_list, get_image_list, fetch_and_combine_images
 
 app = typer.Typer()
@@ -16,42 +15,64 @@ def search(query: str):
     if not mangas:
         console.print("[yellow]No results found.[/yellow]")
         return
-    manga_options = [f"{manga.hid} - {manga.title}" for manga in mangas]
-    fzf_process = subprocess.Popen(
-        ["fzf"],
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True
-    )
-    manga_input = "\n".join(manga_options)
-    selected, _ = fzf_process.communicate(input=manga_input)
+    index_to_hid = {}
+    manga_options = []
+    for index, manga in enumerate(mangas):
+        index_to_hid[index] = manga.hid
+        manga_options.append(f"{index} - {manga.title}")
+    try:
+        fzf_process = subprocess.Popen(
+            ["fzf"],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        manga_input = "\n".join(manga_options)
+        selected, _ = fzf_process.communicate(input=manga_input)
+    except Exception as e:
+        console.print(f"[red]Error running fzf: {e}[/red]")
+        return
+
     if not selected:
         console.print("[yellow]No manga selected.[/yellow]")
         return
-    selected_hid = selected.split(" - ")[0].strip()
+
+    selected_index = int(selected.split(" - ")[0].strip())
+    selected_hid = index_to_hid[selected_index]
     search_chapter(selected_hid)
 
 def search_chapter(hid: str):
     """Search for chapter by number and select one to download using fzf."""
     chapters = asyncio.run(get_chapter_list(hid))
     if not chapters:
-        console.print("[yellow]No chapters found for this manga.[/yellow]")
+        console.print("[yellow]No results found.[/yellow]")
         return
-    chapter_options = [f"{chapter.hid} - {chapter.title}" for chapter in chapters]
-    fzf_process = subprocess.Popen(
-        ["fzf"],
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True
-    )
-    manga_input = "\n".join(chapter_options)
-    selected, _ = fzf_process.communicate(input=manga_input)
+    index_to_hid = {}
+    chapter_options = []
+    for index, chapter in enumerate(chapters):
+        index_to_hid[index] = chapter.hid
+        chapter_options.append(f"{index} - {chapter.title}")
+    try:
+        fzf_process = subprocess.Popen(
+            ["fzf"],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        chapter_input = "\n".join(chapter_options)
+        selected, _ = fzf_process.communicate(input=chapter_input)
+    except Exception as e:
+        console.print(f"[red]Error running fzf: {e}[/red]")
+        return
+
     if not selected:
-        console.print("[yellow]No manga selected.[/yellow]")
+        console.print("[yellow]No chapter selected.[/yellow]")
         return
-    selected_hid = selected.split(" - ")[0].strip()
+
+    selected_index = int(selected.split(" - ")[0].strip())
+    selected_hid = index_to_hid[selected_index]
     asyncio.run(download(selected_hid))
 
 async def download(hid: str):
