@@ -1,5 +1,7 @@
 import asyncio
-from api import fetch_comics, MangaResult, get_select_name
+
+from api import MangaResult, fetch_chapters, fetch_comics, fetch_images, get_select_name
+
 
 async def main():
     print("hello world")
@@ -14,6 +16,21 @@ async def main():
     print("give the id no of the anime you want chapters for")
     id = int(input("anime id: "))
     print(f"you have chosen {sel_name[id-1].title}")
-    hid = sel_name[id-1].hid
+    hid = sel_name[id - 1].hid
+    print(hid)
+    print("the chapters available for that are as follows")
+    chapters = await fetch_chapters(hid)
+    i = 0
+    for chapter in chapters:
+        print(f"{i+1} {chapter.title}")
+        i += 1
+    print("select the chapter for which you want images")
+    chapid = int(input("chapter id: "))
+    chapter_hid = chapters[chapid - 1].hid
+    print(chapter_hid)
+    imagesList = await fetch_images(chapter_hid)
+    for image in imagesList:
+        print(image.b2key)
+
 
 asyncio.run(main())

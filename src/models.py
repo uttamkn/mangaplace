@@ -1,17 +1,22 @@
-from typing import List, Optional, Union
 from datetime import datetime
+from typing import List, Optional, Union
+
 from pydantic import BaseModel
+
 
 class MuComics(BaseModel):
     year: Optional[int] = None
 
+
 class MdTitle(BaseModel):
     title: str
+
 
 class MdCover(BaseModel):
     w: int
     h: int
     b2key: str
+
 
 class MangaResult(BaseModel):
     id: int
@@ -41,9 +46,34 @@ class MangaResult(BaseModel):
     highlight: Optional[str] = None
     cover_url: str
 
+
 class SelectNameOfManga(BaseModel):
     hid: str
     title: str
 
+
 class SearchResults(BaseModel):
     results: List[MangaResult]
+
+
+class Chapter(BaseModel):
+    id: int
+    hid: str
+    title: Optional[str] = None
+    lang: str
+
+
+class ChapterResults(BaseModel):
+    chapters: List[Chapter]
+    total: int
+    limit: int
+
+
+class Images(BaseModel):
+    h: int
+    w: int
+    b2key: str
+
+
+class ListImages(BaseModel):
+    images: List[Images]
