@@ -3,12 +3,11 @@ import asyncio
 import subprocess
 from rich.console import Console
 from rich.prompt import Prompt
-from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
 from api import search_manga, get_chapter_list, get_image_list, fetch_and_combine_images
 
 app = typer.Typer()
 console = Console()
-
 
 @app.command()
 def search(query: str):
@@ -48,8 +47,12 @@ def search(query: str):
     selected_hid = index_to_hid[selected_index]
 
     console.print(f"[green]You selected:[/green] {manga_options[selected_index]}")
-    search_chapter(selected_hid)
 
+    confirm = Prompt.ask("[cyan]Do you want to proceed with this manga? (yes/no)[/cyan]", choices=["yes", "no"])
+    if confirm == "yes":
+        search_chapter(selected_hid)
+    else:
+        console.print("[yellow]Operation cancelled by user.[/yellow]")
 
 def search_chapter(hid: str):
     """Search for chapter by number and select one to download using fzf."""
@@ -88,30 +91,36 @@ def search_chapter(hid: str):
     selected_hid = index_to_hid[selected_index]
 
     console.print(f"[green]You selected chapter:[/green] {chapter_options[selected_index]}")
-    asyncio.run(download(selected_hid))
 
+    confirm = Prompt.ask("[cyan]Do you want to proceed with this chapter? (yes/no)[/cyan]", choices=["yes", "no"])
+    if confirm == "yes":
+        asyncio.run(download(selected_hid))
+    else:
+        console.print("[yellow]Operation cancelled by user.[/yellow]")
 
 async def download(hid: str):
     console.print(f"[cyan]Downloading chapter...[/cyan]")
+
     with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
+            BarColumn(),
             console=console
     ) as progress:
-        progress.add_task(description="Downloading images", total=None)
-        imagesList = await get_image_list(hid)
-        image_names = [image.b2key for image in imagesList]
+        task = progress.add_task(description="Fetching images", total=None)
 
-    if image_names:
-        console.print(f"[green]Downloaded {len(image_names)} images.[/green]")
-    else:
-        console.print("[red]No images found to download.[/red]")
-        return
+        images_list = await get_image_list(hid)
+        image_names = [image.b2key for image in images_list]
 
-    console.print(f"[cyan]Combining images into PDF...[/cyan]")
-    await fetch_and_combine_images("output.pdf", image_names)
-    console.print(f"[green]Download complete! Saved as output.pdf[/green]")
+        progress.update(task, description="Combining images into PDF", total=None)
 
+        if image_names:
+            await fetch_and_combine_images("output.pdf", image_names)
+            progress.update(task, completed=True)
+            console.print(f"[green]Download complete! Saved as output.pdf[/green]")
+        else:
+            console.print("[red]No images found to download.[/red]")
+            return
 
 if __name__ == "__main__":
     app()
