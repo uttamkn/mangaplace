@@ -9,6 +9,7 @@ dependencies = [
     "pydantic>=2.8.2",
     "fastapi>=0.112.2",
     "aiohttp>=3.10.5",
+    "pillow>=10.4.0",
 ]
 
 [build-system]

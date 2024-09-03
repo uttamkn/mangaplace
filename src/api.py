@@ -1,8 +1,11 @@
+import asyncio
 import logging
+from io import BytesIO
 from typing import List
 
 import aiohttp
 from fastapi import HTTPException, Query
+from PIL import Image
 from pydantic import BaseModel, Field, TypeAdapter
 
 from models import (
@@ -142,3 +145,35 @@ async def fetch_images(hid: str) -> List[Images]:
             raise HTTPException(
                 status_code=500, detail=f"Failed to make request: {str(e)}"
             )
+
+
+async def download_image(session, url):
+    async with session.get(url) as response:
+        if response.status == 200:
+            return await response.read()
+        else:
+            raise Exception(
+                f"Failed to download image from {url}, status: {response.status}"
+            )
+
+
+async def fetch_and_combine_images(output_pdf: str, image_names: List[str]):
+    image_urls = [
+        f"https://meo3.comick.pictures/{image_name}" for image_name in image_names
+    ]
+
+    images = []
+
+    async with aiohttp.ClientSession() as session:
+        tasks = [download_image(session, url) for url in image_urls]
+        image_bytes = await asyncio.gather(*tasks)
+
+        for image_data in image_bytes:
+            image = Image.open(BytesIO(image_data)).convert("RGB")
+            images.append(image)
+
+    if images:
+        images[0].save(output_pdf, save_all=True, append_images=images[1:])
+        print(f"PDF saved as {output_pdf}")
+    else:
+        print("No images to combine.")

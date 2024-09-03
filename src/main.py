@@ -1,6 +1,13 @@
 import asyncio
 
-from api import MangaResult, fetch_chapters, fetch_comics, fetch_images, get_select_name
+from api import (
+    MangaResult,
+    fetch_and_combine_images,
+    fetch_chapters,
+    fetch_comics,
+    fetch_images,
+    get_select_name,
+)
 
 
 async def main():
@@ -29,8 +36,11 @@ async def main():
     chapter_hid = chapters[chapid - 1].hid
     print(chapter_hid)
     imagesList = await fetch_images(chapter_hid)
+    image_name = []
     for image in imagesList:
         print(image.b2key)
+        image_name.append(image.b2key)
+    await fetch_and_combine_images("output.pdf", image_name)
 
 
 asyncio.run(main())
