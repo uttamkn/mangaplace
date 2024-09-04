@@ -54,7 +54,7 @@ def search(query: str):
         console.print("[yellow]No manga selected.[/yellow]")
         return
 
-    selecte_name = selected.split(" - ", maxsplit=1)[1].strip() #extracted manga name
+    selecte_name = selected.split(" - ", maxsplit=1)[1].strip()  # extracted manga name
     selected_index = int(selected.split(" - ", maxsplit=1)[0].strip())
     selected_hid = index_to_hid[selected_index]
 
@@ -66,7 +66,7 @@ def search(query: str):
     )
 
     if confirm == "yes":
-        search_chapter(selected_hid, selecte_name) # passed it to select_chapter
+        search_chapter(selected_hid, selecte_name)  # passed it to select_chapter
     else:
         console.print("[yellow]Operation cancelled by user.[/yellow]")
 
@@ -87,15 +87,15 @@ def search_chapter(hid: str, manga_name: str):
         chapter_options.append(f"{index} - {chapter.title}")
 
     try:
-        fzf_process = subprocess.Popen(
+        with subprocess.Popen(
             ["fzf"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-        )
-        chapter_input = "\n".join(chapter_options)
-        selected, _ = fzf_process.communicate(input=chapter_input)
+        ) as fzf_process:
+            chapter_input = "\n".join(chapter_options)
+            selected, _ = fzf_process.communicate(input=chapter_input)
     except Exception as e:
         console.print(f"[red]Error running fzf: {e}[/red]")
         return
@@ -103,9 +103,8 @@ def search_chapter(hid: str, manga_name: str):
     if not selected:
         console.print("[yellow]No chapter selected.[/yellow]")
         return
-    # also extract the manga name from here so that we can use it to name the pdf file with the chapter no
     # selected_title - selected.split(" - ")[1].strip()
-    selected_index = int(selected.split(" - ")[0].strip())
+    selected_index = int(selected.split(" - ", maxsplit=1)[0].strip())
     selected_hid = index_to_hid[selected_index]
 
     console.print(
@@ -117,15 +116,20 @@ def search_chapter(hid: str, manga_name: str):
         choices=["yes", "no"],
     )
     if confirm == "yes":
-        asyncio.run(download(selected_hid, manga_name, selected_index)) # passed it to download because you will use this to name chapters
+        asyncio.run(
+            download(selected_hid, manga_name, selected_index)
+        )  # passed it to download because you will use this to name chapters
     else:
         console.print("[yellow]Operation cancelled by user.[/yellow]")
 
 
 async def download(hid: str, pdf_name: str, index: int):
+    """
+    UI for downloading the chapter.
+    """
     console.print(f"[cyan]Downloading chapter...[/cyan]")
     download_dir_path = await get_path()
-    pdf_path = (download_dir_path + pdf_name + "_" +str(index + 1) + ".pdf")
+    pdf_path = download_dir_path + pdf_name + "_" + str(index + 1) + ".pdf"
 
     with Progress(
         SpinnerColumn(),
@@ -148,8 +152,12 @@ async def download(hid: str, pdf_name: str, index: int):
             console.print("[red]No images found to download.[/red]")
             return
 
+
 async def get_path() -> str:
-    
+    """
+    Get the download path from the settings file.
+    """
+
     xdg_config = os.getenv("XDG_CONFIG")
 
     if not xdg_config or xdg_config == "":
@@ -159,7 +167,9 @@ async def get_path() -> str:
 
     if not os.path.exists(os.path.dirname(json_file_path)):
         os.makedirs(os.path.dirname(json_file_path), exist_ok=True)
-        console.print(f"[green]Created directory: {os.path.dirname(json_file_path)}[/green]")
+        console.print(
+            f"[green]Created directory: {os.path.dirname(json_file_path)}[/green]"
+        )
 
     data = DefaultDict(str)
 
@@ -173,13 +183,18 @@ async def get_path() -> str:
             try:
                 data = json.load(f)
             except json.JSONDecodeError as e:
-                console.print(f"[red]Error decoding JSON: {e}. Creating a new file.[/red]")
+                console.print(
+                    f"[red]Error decoding JSON: {e}. Creating a new file.[/red]"
+                )
                 data = DefaultDict(str)
                 with open(json_file_path, "w") as f:
                     json.dump(data, f)
 
     if "download_path" not in data or not data["download_path"]:
-        dir = Prompt.ask("[yellow]Give fully qualified path of the directory where you want to store your files: [/yellow]")
+        dir = Prompt.ask(
+            "[yellow]Give fully qualified path of the directory \
+            where you want to store your files: [/yellow]"
+        )
         try:
             if not os.path.exists(dir):
                 os.makedirs(dir)
@@ -187,12 +202,15 @@ async def get_path() -> str:
             with open(json_file_path, "w") as f:
                 json.dump(data, f)
         except FileNotFoundError:
-            console.print("[red]You gave the wrong path. Please provide the fully qualified path.[/red]")
+            console.print(
+                "[red]You gave the wrong path. Please provide the fully qualified path.[/red]"
+            )
         except json.JSONDecodeError as e:
             console.print(f"[red]Error decoding JSON: {e}[/red]")
         return dir
 
     return data["download_path"]
+
 
 if __name__ == "__main__":
     app()
