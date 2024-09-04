@@ -98,7 +98,8 @@ def search_chapter(hid: str):
     if not selected:
         console.print("[yellow]No chapter selected.[/yellow]")
         return
-
+    # also extract the manga name from here so that we can use it to name the pdf file with the chapter no
+    # selected_title - selected.split(" - ")[1].strip()
     selected_index = int(selected.split(" - ")[0].strip())
     selected_hid = index_to_hid[selected_index]
 
