@@ -15,4 +15,4 @@
 - [x] ask him what dir should we store things in
 - [x] have a json config file to read from
 - [x] add iterfzf instead of bare fzf dependancy
-- [ ] give him options to select top 10 normally or all options in fzf and handle the case where he doesn't have fzf like check /usr/bin/fzf
+- [ ] give him options to select top 10 normally or all options in fzf
