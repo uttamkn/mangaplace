@@ -1,13 +1,21 @@
-import typer
+"""
+main.py
+"""
+
 import asyncio
 import subprocess
+
+import typer
 from rich.console import Console
+from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
-from api import search_manga, get_chapter_list, get_image_list, fetch_and_combine_images
+
+from api.endpoints import get_chapter_list, get_image_list, search_manga
+from api.image_utils import fetch_and_combine_images
 
 app = typer.Typer()
 console = Console()
+
 
 @app.command()
 def search(query: str):
@@ -26,15 +34,15 @@ def search(query: str):
         manga_options.append(f"{index} - {manga.title}")
 
     try:
-        fzf_process = subprocess.Popen(
+        with subprocess.Popen(
             ["fzf"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True
-        )
-        manga_input = "\n".join(manga_options)
-        selected, _ = fzf_process.communicate(input=manga_input)
+            text=True,
+        ) as fzf_process:
+            manga_input = "\n".join(manga_options)
+            selected, _ = fzf_process.communicate(input=manga_input)
     except Exception as e:
         console.print(f"[red]Error running fzf: {e}[/red]")
         return
@@ -43,16 +51,20 @@ def search(query: str):
         console.print("[yellow]No manga selected.[/yellow]")
         return
 
-    selected_index = int(selected.split(" - ")[0].strip())
+    selected_index = int(selected.split(" - ", maxsplit=1)[0].strip())
     selected_hid = index_to_hid[selected_index]
 
     console.print(f"[green]You selected:[/green] {manga_options[selected_index]}")
 
-    confirm = Prompt.ask("[cyan]Do you want to proceed with this manga? (yes/no)[/cyan]", choices=["yes", "no"])
+    confirm = Prompt.ask(
+        "[cyan]Do you want to proceed with this manga? (yes/no)[/cyan]",
+        choices=["yes", "no"],
+    )
     if confirm == "yes":
         search_chapter(selected_hid)
     else:
         console.print("[yellow]Operation cancelled by user.[/yellow]")
+
 
 def search_chapter(hid: str):
     """Search for chapter by number and select one to download using fzf."""
@@ -75,7 +87,7 @@ def search_chapter(hid: str):
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True
+            text=True,
         )
         chapter_input = "\n".join(chapter_options)
         selected, _ = fzf_process.communicate(input=chapter_input)
@@ -90,22 +102,28 @@ def search_chapter(hid: str):
     selected_index = int(selected.split(" - ")[0].strip())
     selected_hid = index_to_hid[selected_index]
 
-    console.print(f"[green]You selected chapter:[/green] {chapter_options[selected_index]}")
+    console.print(
+        f"[green]You selected chapter:[/green] {chapter_options[selected_index]}"
+    )
 
-    confirm = Prompt.ask("[cyan]Do you want to proceed with this chapter? (yes/no)[/cyan]", choices=["yes", "no"])
+    confirm = Prompt.ask(
+        "[cyan]Do you want to proceed with this chapter? (yes/no)[/cyan]",
+        choices=["yes", "no"],
+    )
     if confirm == "yes":
         asyncio.run(download(selected_hid))
     else:
         console.print("[yellow]Operation cancelled by user.[/yellow]")
 
+
 async def download(hid: str):
     console.print(f"[cyan]Downloading chapter...[/cyan]")
 
     with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            BarColumn(),
-            console=console
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(),
+        console=console,
     ) as progress:
         task = progress.add_task(description="Fetching images", total=None)
 
@@ -121,6 +139,7 @@ async def download(hid: str):
         else:
             console.print("[red]No images found to download.[/red]")
             return
+
 
 if __name__ == "__main__":
     app()
