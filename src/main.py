@@ -177,7 +177,7 @@ async def get_path() -> str:
                 data = DefaultDict(str)
                 with open(json_file_path, "w") as f:
                     json.dump(data, f)
-    
+
     if "download_path" not in data or not data["download_path"]:
         dir = Prompt.ask("[yellow]Give fully qualified path of the directory where you want to store your files: [/yellow]")
         try:
