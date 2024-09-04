@@ -51,6 +51,7 @@ def search(query: str):
         console.print("[yellow]No manga selected.[/yellow]")
         return
 
+    selecte_name = selected.split(" - ", maxsplit=1)[1].strip() #extracted manga name
     selected_index = int(selected.split(" - ", maxsplit=1)[0].strip())
     selected_hid = index_to_hid[selected_index]
 
@@ -61,12 +62,12 @@ def search(query: str):
         choices=["yes", "no"],
     )
     if confirm == "yes":
-        search_chapter(selected_hid)
+        search_chapter(selected_hid, selecte_name) # passed it to select_chapter
     else:
         console.print("[yellow]Operation cancelled by user.[/yellow]")
 
 
-def search_chapter(hid: str):
+def search_chapter(hid: str, manga_name: str):
     """Search for chapter by number and select one to download using fzf."""
     console.print("[cyan]Fetching chapters...[/cyan]")
     chapters = asyncio.run(get_chapter_list(hid))
@@ -112,12 +113,12 @@ def search_chapter(hid: str):
         choices=["yes", "no"],
     )
     if confirm == "yes":
-        asyncio.run(download(selected_hid))
+        asyncio.run(download(selected_hid, manga_name, selected_index)) # passed it to download because you will use this to name chapters
     else:
         console.print("[yellow]Operation cancelled by user.[/yellow]")
 
 
-async def download(hid: str):
+async def download(hid: str, pdf_name: str, index: int):
     console.print(f"[cyan]Downloading chapter...[/cyan]")
 
     with Progress(
@@ -134,7 +135,7 @@ async def download(hid: str):
         progress.update(task, description="Combining images into PDF", total=None)
 
         if image_names:
-            await fetch_and_combine_images("output.pdf", image_names)
+            await fetch_and_combine_images(pdf_name + str(index), image_names)
             progress.update(task, completed=True)
             console.print(f"[green]Download complete! Saved as output.pdf[/green]")
         else:
