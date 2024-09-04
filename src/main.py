@@ -1,10 +1,13 @@
-import typer
 import asyncio
 import subprocess
+
+import typer
 from rich.console import Console
+from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
-from api import search_manga, get_chapter_list, get_image_list, fetch_and_combine_images
+
+from api import (fetch_and_combine_images, get_chapter_list, get_image_list,
+                 search_manga)
 
 app = typer.Typer()
 console = Console()
@@ -86,7 +89,8 @@ def search_chapter(hid: str):
     if not selected:
         console.print("[yellow]No chapter selected.[/yellow]")
         return
-
+    # also extract the manga name from here so that we can use it to name the pdf file with the chapter no
+    # selected_title - selected.split(" - ")[1].strip()
     selected_index = int(selected.split(" - ")[0].strip())
     selected_hid = index_to_hid[selected_index]
 
