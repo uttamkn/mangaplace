@@ -11,6 +11,7 @@ dependencies = [
     "aiohttp>=3.10.5",
     "pillow>=10.4.0",
     "pylint>=3.2.7",
+    "iterfzf>=1.4.0.54.3",
 ]
 
 [build-system]

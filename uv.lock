@@ -199,12 +199,29 @@ wheels = [
 ]
 
 [[package]]
+name = "iterfzf"
+version = "1.4.0.54.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ed/2d/59f1b1eeaef868b24aba97e651c9c9bbf937b8a6967ffc23d1f9131c8f68/iterfzf-1.4.0.54.3.tar.gz", hash = "sha256:8a0b9dc4f1a126da959dd601643bf31de7fa69febb7c33f4b6e2fa8edc4be2e1", size = 1759273 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/20/2c/3afd6d9911204f8324195a0cf91b39844faaf3ad56bffd35d5d8083d84aa/iterfzf-1.4.0.54.3-py3-none-macosx_10_7_x86_64.macosx_10_9_x86_64.whl", hash = "sha256:0d070c575cb9e706651e2f753d0361639fcd7b79435ef4626a824a0a76b03dce", size = 1643311 },
+    { url = "https://files.pythonhosted.org/packages/45/bb/9d195462a6e8348aa9c16b47009f96cfa0cc84f62c53cdc7022c903c6c79/iterfzf-1.4.0.54.3-py3-none-macosx_11_0_arm64.whl", hash = "sha256:9d3edbd8184490bd9ab8cd399db462e010ae7c2273d933b040ca536d5c1a8915", size = 1557844 },
+    { url = "https://files.pythonhosted.org/packages/a8/44/6e7d873d292d17cb6af6c77d0f274408ae9da7dd9ac907eb48a2c83b39e7/iterfzf-1.4.0.54.3-py3-none-manylinux_1_2_aarch64.manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f981dcf71f44bd4aa7119cc8e19373a8a8726db6f829a505d131c263c2fe8d84", size = 1432325 },
+    { url = "https://files.pythonhosted.org/packages/ad/3c/a6eebbfa3ab26d49e0f752b23cbd964011bd1de0579c97bab7ffe917bc8c/iterfzf-1.4.0.54.3-py3-none-manylinux_1_2_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c87a093cdd13b9604f3e7f457dd49ec1bc1dad63899476a01f5743ad1f394bb9", size = 1552301 },
+    { url = "https://files.pythonhosted.org/packages/8a/88/6962ea965f146fb9ca11062756eb4c5c86d54b20eb38d93e7c1297cb96a9/iterfzf-1.4.0.54.3-py3-none-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:a7510bc99e503b12513fceca9add5ae6bcd9497e95a098ae682ca5b2916dc3c2", size = 1427831 },
+    { url = "https://files.pythonhosted.org/packages/9c/69/ca3abe63b1a7296ff2b8cb173e69283abf5f235268c393b48fe355918aba/iterfzf-1.4.0.54.3-py3-none-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:6c32312ce5599d84600d920b0db8986cf10b20e4b9fdb2aee5df6b67cc646d27", size = 1545488 },
+    { url = "https://files.pythonhosted.org/packages/81/9c/c94bf804b1c18024810ee3ebc4528faec4cedef18824776b9f3a37ad13fa/iterfzf-1.4.0.54.3-py3-none-win_amd64.whl", hash = "sha256:8385d45359d6c392b10095d179f0b2857f64b33eba55e1b6a34eb5d82320377f", size = 1763502 },
+    { url = "https://files.pythonhosted.org/packages/6c/24/42c53c9df027b630e54276e03d54d0ab80b4ecf425b9f74e1591765e54a6/iterfzf-1.4.0.54.3-py3-none-win_arm64.whl", hash = "sha256:bf78d55832e172fe7bce451f3b68becde28412a192f7161ca7bd2313bd5e842f", size = 1626719 },
+]
+
+[[package]]
 name = "mangaplace"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },
     { name = "fastapi" },
+    { name = "iterfzf" },
     { name = "pillow" },
     { name = "pydantic" },
     { name = "pylint" },
@@ -215,6 +232,7 @@ dependencies = [
 requires-dist = [
     { name = "aiohttp", specifier = ">=3.10.5" },
     { name = "fastapi", specifier = ">=0.112.2" },
+    { name = "iterfzf", specifier = ">=1.4.0.54.3" },
     { name = "pillow", specifier = ">=10.4.0" },
     { name = "pydantic", specifier = ">=2.8.2" },
     { name = "pylint", specifier = ">=3.2.7" },

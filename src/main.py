@@ -5,10 +5,10 @@ main.py
 import asyncio
 import json
 import os
-import subprocess
 from typing import DefaultDict
 
 import typer
+from iterfzf import iterfzf
 from rich.console import Console
 from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt
@@ -36,26 +36,16 @@ def search(query: str):
         index_to_hid[index] = manga.hid
         manga_options.append(f"{index} - {manga.title}")
 
-    try:
-        with subprocess.Popen(
-            ["fzf"],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-        ) as fzf_process:
-            manga_input = "\n".join(manga_options)
-            selected, _ = fzf_process.communicate(input=manga_input)
-    except Exception as e:
-        console.print(f"[red]Error running fzf: {e}[/red]")
-        return
+    selected: list[str] = iterfzf(manga_options)  # type: ignore
 
     if not selected:
         console.print("[yellow]No manga selected.[/yellow]")
         return
 
-    selecte_name = selected.split(" - ", maxsplit=1)[1].strip()  # extracted manga name
-    selected_index = int(selected.split(" - ", maxsplit=1)[0].strip())
+    selected_name = selected.split(" - ", maxsplit=1)[  # type: ignore
+        1
+    ].strip()  # extracted manga name
+    selected_index = int(selected[0].split(" - ", maxsplit=1)[0].strip())
     selected_hid = index_to_hid[selected_index]
 
     console.print(f"[green]You selected:[/green] {manga_options[selected_index]}")
@@ -66,7 +56,7 @@ def search(query: str):
     )
 
     if confirm == "yes":
-        search_chapter(selected_hid, selecte_name)  # passed it to select_chapter
+        search_chapter(selected_hid, selected_name)  # passed it to select_chapter
     else:
         console.print("[yellow]Operation cancelled by user.[/yellow]")
 
@@ -86,39 +76,26 @@ def search_chapter(hid: str, manga_name: str):
         index_to_hid[index] = chapter.hid
         chapter_options.append(f"{index} - {chapter.title}")
 
-    try:
-        with subprocess.Popen(
-            ["fzf"],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-        ) as fzf_process:
-            chapter_input = "\n".join(chapter_options)
-            selected, _ = fzf_process.communicate(input=chapter_input)
-    except Exception as e:
-        console.print(f"[red]Error running fzf: {e}[/red]")
-        return
+    selected = iterfzf(chapter_options, multi=True)  # type: ignore
 
     if not selected:
         console.print("[yellow]No chapter selected.[/yellow]")
         return
-    # selected_title - selected.split(" - ")[1].strip()
-    selected_index = int(selected.split(" - ", maxsplit=1)[0].strip())
-    selected_hid = index_to_hid[selected_index]
 
-    console.print(
-        f"[green]You selected chapter:[/green] {chapter_options[selected_index]}"
-    )
+    selected_indices = [int(s.split(" - ", maxsplit=1)[0].strip()) for s in selected]  # type: ignore
+    selected_hids = [index_to_hid[i] for i in selected_indices]
+
+    for idx in selected_indices:
+        console.print(f"[green]You selected chapter:[/green] {chapter_options[idx]}")
 
     confirm = Prompt.ask(
-        "[cyan]Do you want to proceed with this chapter? (yes/no)[/cyan]",
+        "[cyan]Do you want to proceed with downloading the selected chapter(s)? (yes/no)[/cyan]",
         choices=["yes", "no"],
     )
+
     if confirm == "yes":
-        asyncio.run(
-            download(selected_hid, manga_name, selected_index)
-        )  # passed it to download because you will use this to name chapters
+        for selected_index, selected_hid in zip(selected_indices, selected_hids):
+            asyncio.run(download(selected_hid, manga_name, selected_index))
     else:
         console.print("[yellow]Operation cancelled by user.[/yellow]")
 
