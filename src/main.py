@@ -6,11 +6,11 @@ from rich.console import Console
 from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt
 
-from api import (fetch_and_combine_images, get_chapter_list, get_image_list,
-                 search_manga)
+from api import fetch_and_combine_images, get_chapter_list, get_image_list, search_manga
 
 app = typer.Typer()
 console = Console()
+
 
 @app.command()
 def search(query: str):
@@ -34,7 +34,7 @@ def search(query: str):
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True
+            text=True,
         )
         manga_input = "\n".join(manga_options)
         selected, _ = fzf_process.communicate(input=manga_input)
@@ -51,11 +51,15 @@ def search(query: str):
 
     console.print(f"[green]You selected:[/green] {manga_options[selected_index]}")
 
-    confirm = Prompt.ask("[cyan]Do you want to proceed with this manga? (yes/no)[/cyan]", choices=["yes", "no"])
+    confirm = Prompt.ask(
+        "[cyan]Do you want to proceed with this manga? (yes/no)[/cyan]",
+        choices=["yes", "no"],
+    )
     if confirm == "yes":
         search_chapter(selected_hid)
     else:
         console.print("[yellow]Operation cancelled by user.[/yellow]")
+
 
 def search_chapter(hid: str):
     """Search for chapter by number and select one to download using fzf."""
@@ -78,7 +82,7 @@ def search_chapter(hid: str):
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True
+            text=True,
         )
         chapter_input = "\n".join(chapter_options)
         selected, _ = fzf_process.communicate(input=chapter_input)
@@ -94,22 +98,28 @@ def search_chapter(hid: str):
     selected_index = int(selected.split(" - ")[0].strip())
     selected_hid = index_to_hid[selected_index]
 
-    console.print(f"[green]You selected chapter:[/green] {chapter_options[selected_index]}")
+    console.print(
+        f"[green]You selected chapter:[/green] {chapter_options[selected_index]}"
+    )
 
-    confirm = Prompt.ask("[cyan]Do you want to proceed with this chapter? (yes/no)[/cyan]", choices=["yes", "no"])
+    confirm = Prompt.ask(
+        "[cyan]Do you want to proceed with this chapter? (yes/no)[/cyan]",
+        choices=["yes", "no"],
+    )
     if confirm == "yes":
         asyncio.run(download(selected_hid))
     else:
         console.print("[yellow]Operation cancelled by user.[/yellow]")
 
+
 async def download(hid: str):
     console.print(f"[cyan]Downloading chapter...[/cyan]")
 
     with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            BarColumn(),
-            console=console
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(),
+        console=console,
     ) as progress:
         task = progress.add_task(description="Fetching images", total=None)
 
@@ -125,6 +135,7 @@ async def download(hid: str):
         else:
             console.print("[red]No images found to download.[/red]")
             return
+
 
 if __name__ == "__main__":
     app()
