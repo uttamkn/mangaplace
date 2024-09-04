@@ -61,6 +61,7 @@ def search(query: str):
         "[cyan]Do you want to proceed with this manga? (yes/no)[/cyan]",
         choices=["yes", "no"],
     )
+
     if confirm == "yes":
         search_chapter(selected_hid, selecte_name) # passed it to select_chapter
     else:
