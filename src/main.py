@@ -120,6 +120,7 @@ def search_chapter(hid: str, manga_name: str):
 
 async def download(hid: str, pdf_name: str, index: int):
     console.print(f"[cyan]Downloading chapter...[/cyan]")
+    pdf_name = (pdf_name + "_" +str(index + 1) + ".pdf")
 
     with Progress(
         SpinnerColumn(),
@@ -135,9 +136,9 @@ async def download(hid: str, pdf_name: str, index: int):
         progress.update(task, description="Combining images into PDF", total=None)
 
         if image_names:
-            await fetch_and_combine_images(pdf_name + "_" +str(index + 1), image_names)
+            await fetch_and_combine_images(pdf_name, image_names)
             progress.update(task, completed=True)
-            console.print(f"[green]Download complete! Saved as output.pdf[/green]")
+            console.print(f"[green]Download complete! Saved as {pdf_name}[/green]")
         else:
             console.print("[red]No images found to download.[/red]")
             return
