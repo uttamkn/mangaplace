@@ -1,3 +1,7 @@
+"""
+main.py
+"""
+
 import asyncio
 import subprocess
 
@@ -6,7 +10,8 @@ from rich.console import Console
 from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt
 
-from api import fetch_and_combine_images, get_chapter_list, get_image_list, search_manga
+from api.endpoints import get_chapter_list, get_image_list, search_manga
+from api.image_utils import fetch_and_combine_images
 
 app = typer.Typer()
 console = Console()
@@ -29,15 +34,15 @@ def search(query: str):
         manga_options.append(f"{index} - {manga.title}")
 
     try:
-        fzf_process = subprocess.Popen(
+        with subprocess.Popen(
             ["fzf"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-        )
-        manga_input = "\n".join(manga_options)
-        selected, _ = fzf_process.communicate(input=manga_input)
+        ) as fzf_process:
+            manga_input = "\n".join(manga_options)
+            selected, _ = fzf_process.communicate(input=manga_input)
     except Exception as e:
         console.print(f"[red]Error running fzf: {e}[/red]")
         return
@@ -46,7 +51,7 @@ def search(query: str):
         console.print("[yellow]No manga selected.[/yellow]")
         return
 
-    selected_index = int(selected.split(" - ")[0].strip())
+    selected_index = int(selected.split(" - ", maxsplit=1)[0].strip())
     selected_hid = index_to_hid[selected_index]
 
     console.print(f"[green]You selected:[/green] {manga_options[selected_index]}")
