@@ -135,7 +135,7 @@ async def download(hid: str, pdf_name: str, index: int):
         progress.update(task, description="Combining images into PDF", total=None)
 
         if image_names:
-            await fetch_and_combine_images(pdf_name + str(index), image_names)
+            await fetch_and_combine_images(pdf_name + "_" +str(index + 1), image_names)
             progress.update(task, completed=True)
             console.print(f"[green]Download complete! Saved as output.pdf[/green]")
         else:
