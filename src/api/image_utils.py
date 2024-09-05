@@ -8,6 +8,7 @@ from typing import List
 
 import aiohttp
 from PIL import Image
+from concurrent.futures import ThreadPoolExecutor
 
 
 async def download_image(session: aiohttp.ClientSession, url: str):
@@ -32,7 +33,6 @@ async def fetch_and_combine_images(output_pdf: str, image_names: List[str]):
     async with aiohttp.ClientSession() as session:
         tasks = [download_image(session, url) for url in image_urls]
 
-        # Limit the number of concurrent downloads to 10 (increase if you want)
         semaphore = asyncio.Semaphore(10)
 
         async def limited_download(task):
@@ -47,7 +47,16 @@ async def fetch_and_combine_images(output_pdf: str, image_names: List[str]):
             images.append(image)
 
     if images:
-        images[0].save(output_pdf, save_all=True, append_images=images[1:])
+        loop = asyncio.get_event_loop()
+        with ThreadPoolExecutor() as pool:
+            await loop.run_in_executor(pool, save_images_as_pdf, images, output_pdf)
         print(f"PDF saved as {output_pdf}")
     else:
         print("No images to combine.")
+
+def save_images_as_pdf(images, output_pdf):
+    """
+    Function to save images as a PDF. This is run in a separate thread using ThreadPoolExecutor.
+    """
+    if images:
+        images[0].save(output_pdf, save_all=True, append_images=images[1:])
