@@ -88,7 +88,7 @@ def main(
             return
 
         selected_hid = index_to_hid[selected_index]
-        console.print(f"[green]Title:[/green] {manga_options[selected_index]}")
+        console.print(f"[green]Title:[/green] {manga_options[selected_index][4:]}")
 
         # Show manga description
         for manga in mangas:
