@@ -18,18 +18,6 @@ source ./venv/bin/activate
 uv sync
 ```
 
-3. Build the app
-
-```bash
-python build.py
-```
-
-4. Run the app
-
-```bash
-./dist/main
-```
-
 ## Todo
 
 - [x] test out every endpoint using curl and see if you are able to get images and pdfs

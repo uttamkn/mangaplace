@@ -14,3 +14,7 @@ dependencies = [
     "iterfzf>=1.4.0.54.3",
     "pyinstaller>=6.10.0",
 ]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
