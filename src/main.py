@@ -26,7 +26,7 @@ def search(
 ):
     """Search for manga by title and select one to download using fzf."""
     console.print(f"[cyan]Searching for mangas with title:[/cyan] '{query}'")
-    mangas = asyncio.run(search_manga(query))
+    mangas = asyncio.run(search_manga(query)) # get all mangas with name {query}
 
     if not mangas:
         console.print("[yellow]No results found.[/yellow]")
@@ -38,6 +38,7 @@ def search(
         index_to_hid[index] = manga.hid
         manga_options.append(f"{index} - {manga.title}")
 
+    # select a few mangas form list
     selected: list[str] = iterfzf(manga_options)  # type: ignore
 
     if not selected:
@@ -47,7 +48,8 @@ def search(
     selected_name = selected.split(" - ", maxsplit=1)[  # type: ignore
         1
     ].strip()  # extracted manga name
-    selected_index = int(selected[0].split(" - ", maxsplit=1)[0].strip())
+
+    selected_index = int(selected[0].split(" - ", maxsplit=1)[0].strip()) # extracted id
     selected_hid = index_to_hid[selected_index]
 
     console.print(f"[green]You selected:[/green] {manga_options[selected_index]}")
