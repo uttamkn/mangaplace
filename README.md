@@ -20,7 +20,7 @@ uv sync
 3. create an alias
 
 ```bash
-alias manga='$HOME/mangaplace/mangaplace/main.py'
+alias manga='python $HOME/mangaplace/mangaplace/main.py'
 
 ```
 
