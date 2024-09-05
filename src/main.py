@@ -21,50 +21,74 @@ console = Console()
 
 
 @app.command()
-def search(
-    query: str = typer.Option(..., "--search", "-s", help="Manga title to search for")
+def main(
+    search_string: str = typer.Option(
+        None, "--search", "-s", help="Search for mangas by title"
+    ),
+    download_query: str = typer.Option(
+        None, "--download", "-d", help="Manga title to download"
+    ),
 ):
-    """Search for manga by title and select one to download using fzf."""
-    console.print(f"[cyan]Searching for mangas with title:[/cyan] '{query}'")
-    mangas = asyncio.run(search_manga(query))  # get all mangas with name {query}
+    """Search or download manga using a single command with either --search or --download flag."""
+    if search_string:
+        console.print(
+            f"[cyan]Searching for mangas with title:[/cyan] '{search_string}'"
+        )
+        mangas = asyncio.run(search_manga(search_string))
 
-    if not mangas:
-        console.print("[yellow]No results found.[/yellow]")
-        return
+        if not mangas:
+            console.print("[yellow]No results found.[/yellow]")
+            return
 
-    index_to_hid = {}
-    manga_options = []
-    for index, manga in enumerate(mangas):
-        index_to_hid[index] = manga.hid
-        manga_options.append(f"{index} - {manga.title}")
+        for index, manga in enumerate(mangas[:10]):
+            console.print(f"[blue]{index}[/blue] - [green]{manga.title}[/green]")
 
-    # select a few mangas form list
-    selected: list[str] = iterfzf(manga_options)  # type: ignore
+    elif download_query:
+        console.print(
+            f"[cyan]Searching for mangas with title:[/cyan] '{download_query}'"
+        )
+        mangas = asyncio.run(search_manga(download_query))
 
-    if not selected:
-        console.print("[yellow]No manga selected.[/yellow]")
-        return
+        if not mangas:
+            console.print("[yellow]No results found.[/yellow]")
+            return
 
-    selected_name = selected.split(" - ", maxsplit=1)[  # type: ignore
-        1
-    ].strip()  # extracted manga name
+        index_to_hid = {}
+        manga_options = []
+        for index, manga in enumerate(mangas):
+            index_to_hid[index] = manga.hid
+            manga_options.append(f"{index} - {manga.title}")
 
-    selected_index = int(
-        selected[0].split(" - ", maxsplit=1)[0].strip()
-    )  # extracted id
-    selected_hid = index_to_hid[selected_index]
+        # select a manga from the list
+        selected: list[str] = iterfzf(manga_options)  # type: ignore
 
-    console.print(f"[green]You selected:[/green] {manga_options[selected_index]}")
+        if not selected:
+            console.print("[yellow]No manga selected.[/yellow]")
+            return
 
-    confirm = Prompt.ask(
-        "[cyan]Do you want to proceed with this manga? (yes/no)[/cyan]",
-        choices=["yes", "no"],
-    )
+        selected_name = selected.split(" - ", maxsplit=1)[  # type: ignore
+            1
+        ].strip()  # extracted manga name
 
-    if confirm == "yes":
-        search_chapter(selected_hid, selected_name)  # passed it to select_chapter
+        selected_index = int(
+            selected[0].split(" - ", maxsplit=1)[0].strip()
+        )  # extracted id
+        selected_hid = index_to_hid[selected_index]
+
+        console.print(f"[green]You selected:[/green] {manga_options[selected_index]}")
+
+        confirm = Prompt.ask(
+            "[cyan]Do you want to proceed with this manga? (yes/no)[/cyan]",
+            choices=["yes", "no"],
+        )
+
+        if confirm == "yes":
+            search_chapter(selected_hid, selected_name)
+        else:
+            console.print("[yellow]Operation cancelled by user.[/yellow]")
+
     else:
-        console.print("[yellow]Operation cancelled by user.[/yellow]")
+        console.print("[red]You must provide either --search or --download flag.[/red]")
 
 
 def search_chapter(hid: str, manga_name: str):
@@ -107,9 +131,7 @@ def search_chapter(hid: str, manga_name: str):
 
 
 async def download(hid: str, pdf_name: str, index: int):
-    """
-    UI for downloading the chapter.
-    """
+    """UI for downloading the chapter."""
     console.print(f"[cyan]Downloading chapter...[/cyan]")
     download_dir_path = await get_path()
     pdf_path = download_dir_path + pdf_name + "_" + str(index + 1) + ".pdf"
@@ -137,10 +159,7 @@ async def download(hid: str, pdf_name: str, index: int):
 
 
 async def get_path() -> str:
-    """
-    Get the download path from the settings file.
-    """
-
+    """Get the download path from the settings file."""
     xdg_config = os.getenv("XDG_CONFIG")
 
     if not xdg_config or xdg_config == "":
