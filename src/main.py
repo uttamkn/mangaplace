@@ -21,7 +21,9 @@ console = Console()
 
 
 @app.command()
-def search(query: str):
+def search(
+    query: str = typer.Option(..., "--search", "-s", help="Manga title to search for")
+):
     """Search for manga by title and select one to download using fzf."""
     console.print(f"[cyan]Searching for mangas with title:[/cyan] '{query}'")
     mangas = asyncio.run(search_manga(query))  # get all mangas with name {query}
