@@ -9,7 +9,7 @@ from rich.prompt import Prompt
 
 from api.endpoints import get_chapter_list, get_image_list
 from api.image_utils import fetch_and_combine_images
-from src.utils import get_path
+from utils import get_path
 
 console = Console()
 

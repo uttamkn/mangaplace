@@ -9,7 +9,7 @@ from rich.console import Console
 from rich.prompt import Prompt
 
 from api.endpoints import search_manga
-from src.ui import search_chapter, select_manga, show_manga_list
+from ui import search_chapter, select_manga, show_manga_list
 
 app = typer.Typer()
 console = Console()
