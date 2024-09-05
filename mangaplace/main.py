@@ -5,10 +5,11 @@ main.py
 import asyncio
 
 import typer
-from rich.console import Console
-from rich.prompt import Prompt
-
 from api.endpoints import search_manga
+from rich.console import Console
+from rich.panel import Panel
+from rich.prompt import Prompt
+from rich.table import Table
 from ui import search_chapter, select_manga, show_manga_list
 
 app = typer.Typer()
@@ -37,10 +38,14 @@ def main(
             return
 
         manga_options, _ = manga_result
-        if manga_options:
-            # TODO: Show this more nicely
-            for index, manga_option in enumerate(manga_options[:10]):
-                console.print(f"[blue]{index}[/blue] - [green]{manga_option}[/green]")
+        table = Table(show_header=True, header_style="bold blue")
+        table.add_column("Index", style="dim", width=6)
+        table.add_column("Search results", style="green")
+
+        for index, manga_option in enumerate(manga_options[:10]):
+            table.add_row(str(index), manga_option[4:])
+
+        console.print(table)
 
     elif download_query:
         mangas = asyncio.run(search_manga(download_query))
@@ -88,7 +93,13 @@ def main(
         # Show manga description
         for manga in mangas:
             if manga.hid == selected_hid:
-                console.print(f"[green]Description:[/green] {manga.desc}")
+                description_box = Panel(
+                    manga.desc.split("---")[0].rstrip("\n"),
+                    title="Manga Description",
+                    title_align="left",
+                    border_style="green",
+                )
+                console.print(description_box)
                 break
     else:
         console.print(
