@@ -1,7 +1,7 @@
 [project]
 name = "mangaplace"
 version = "0.1.0"
-description = "Add your description here"
+description = "A CLI tool to download manga."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -12,8 +12,5 @@ dependencies = [
     "pillow>=10.4.0",
     "pylint>=3.2.7",
     "iterfzf>=1.4.0.54.3",
+    "pyinstaller>=6.10.0",
 ]
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"

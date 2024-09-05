@@ -1,12 +1,36 @@
 # mangaplace cli app
 
-## ( this project is still under development )
+- Full fledged cli app for all your comic needs
 
-- desc: full fledged cli app for all your comic needs
+## Installation
 
-## roadmap
+1. Clone the repo
 
-### todo
+```bash
+git clone https://github.com/uttamkn/mangaplace.git
+```
+
+2. Create a virtual environment and install the requirements
+
+```bash
+uv venv
+source ./venv/bin/activate
+uv sync
+```
+
+3. Build the app
+
+```bash
+python build.py
+```
+
+4. Run the app
+
+```bash
+./dist/main
+```
+
+## Todo
 
 - [x] test out every endpoint using curl and see if you are able to get images and pdfs
 - [x] write a few functions that will give you the pdf if you give the name of the manga or something
