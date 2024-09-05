@@ -17,6 +17,12 @@ uv venv
 source ./venv/bin/activate
 uv sync
 ```
+3. create an alias
+
+```bash
+alias manga='$HOME/mangaplace/mangaplace/main.py'
+
+```
 
 ## Todo
 
