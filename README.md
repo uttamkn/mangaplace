@@ -1,4 +1,4 @@
-# mangaplace cli app
+# mangaplace
 
 - Full fledged cli app for all your comic needs
 
