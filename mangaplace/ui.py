@@ -2,13 +2,12 @@
 
 import asyncio
 
+from endpoints import get_chapter_list, get_image_list
+from image_utils import fetch_and_combine_images
 from iterfzf import iterfzf
 from rich.console import Console
 from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt
-
-from api.endpoints import get_chapter_list, get_image_list
-from api.image_utils import fetch_and_combine_images
 from utils import get_path
 
 console = Console()

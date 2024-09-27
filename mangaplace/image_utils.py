@@ -3,12 +3,12 @@ This module contains utility functions for downloading and combining images.
 """
 
 import asyncio
+from concurrent.futures import ThreadPoolExecutor
 from io import BytesIO
 from typing import List
 
 import aiohttp
 from PIL import Image
-from concurrent.futures import ThreadPoolExecutor
 
 
 async def download_image(session: aiohttp.ClientSession, url: str):
@@ -54,9 +54,11 @@ async def fetch_and_combine_images(output_pdf: str, image_names: List[str]):
     else:
         print("No images to combine.")
 
+
 def save_images_as_pdf(images, output_pdf):
     """
     Function to save images as a PDF. This is run in a separate thread using ThreadPoolExecutor.
     """
     if images:
         images[0].save(output_pdf, save_all=True, append_images=images[1:])
+

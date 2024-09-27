@@ -5,7 +5,7 @@ main.py
 import asyncio
 
 import typer
-from api.endpoints import search_manga
+from endpoints import search_manga
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt

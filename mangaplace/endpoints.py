@@ -3,10 +3,18 @@
 """
 
 from typing import List
+
 from aiohttp import ClientError, ClientSession
+from config import BASE_API_URL, HEADERS
+from models import (
+    Chapter,
+    ChapterResults,
+    Images,
+    ListImages,
+    MangaResult,
+    SearchResults,
+)
 from pydantic import ValidationError
-from mangaplace.config import BASE_API_URL, HEADERS
-from mangaplace.models import Chapter, ChapterResults, Images, ListImages, MangaResult, SearchResults
 
 
 async def fetch_data(url: str):
@@ -21,7 +29,9 @@ async def fetch_data(url: str):
                 error_text = await response.text()
                 if response.status == 403:
                     raise PermissionError(f"Access forbidden: {error_text}")
-                raise ValueError(f"Failed to fetch: {error_text} (status: {response.status})")
+                raise ValueError(
+                    f"Failed to fetch: {error_text} (status: {response.status})"
+                )
         except ClientError as e:
             raise ConnectionError(f"Request failed: {str(e)}")
 
