@@ -1,8 +1,8 @@
 # mangaplace
 
-- Full fledged cli app for all your comic needs
+Full-fledged cli app for all your comic needs
 
-## Installation
+## Building the project
 
 1. Clone the repo
 
@@ -16,4 +16,9 @@ git clone https://github.com/uttamkn/mangaplace.git
 uv venv
 source ./venv/bin/activate
 uv sync
+```
+3. Run the app
+
+```bash
+uv run mangaplace/main.py --help
 ```

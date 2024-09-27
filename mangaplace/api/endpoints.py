@@ -1,3 +1,7 @@
+"""
+ This file contains the functions that interact with the api.comick.fun API.
+"""
+
 from typing import List
 from aiohttp import ClientError, ClientSession
 from pydantic import ValidationError
