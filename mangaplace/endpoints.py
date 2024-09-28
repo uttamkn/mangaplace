@@ -15,6 +15,8 @@ from models import (
     ListImages,
     MangaResult,
     SearchResults,
+    TopManga,
+    TopResults,
 )
 
 
@@ -72,5 +74,18 @@ async def get_image_list(hid: str) -> List[Images]:
     try:
         search_results = ListImages.model_validate({"images": data})
         return search_results.images
+    except ValidationError as e:
+        raise ValueError(f"Data validation failed: {e}") from e
+
+
+async def get_top_list() -> List[TopManga]:
+    """
+    Get the list of top manga.
+    """
+    url = f"{BASE_API_URL}/top"
+    data = await fetch_data(url)
+    try:
+        search_results = TopResults.model_validate({"results": data["rank"]})
+        return search_results.results
     except ValidationError as e:
         raise ValueError(f"Data validation failed: {e}") from e

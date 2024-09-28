@@ -2,12 +2,13 @@
 
 import asyncio
 
-from endpoints import get_chapter_list, get_image_list
-from image_utils import fetch_and_combine_images
 from iterfzf import iterfzf
 from rich.console import Console
 from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt
+
+from endpoints import get_chapter_list, get_image_list
+from image_utils import fetch_and_combine_images
 from utils import get_path
 
 console = Console()
@@ -26,6 +27,19 @@ def show_manga_list(mangas):
         manga_options.append(f"{index} - {manga.title}")
 
     return manga_options, index_to_hid
+
+
+def show_top_manga_list(mangas):
+    """Returns a list of top mangas with index."""
+    if not mangas:
+        console.print("[yellow]No results found.[/yellow]")
+        return None
+
+    manga_options = []
+    for index, manga in enumerate(mangas):
+        manga_options.append(f"{index} - {manga.title}")
+
+    return manga_options
 
 
 def select_manga(manga_options):

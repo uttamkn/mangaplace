@@ -57,6 +57,14 @@ class SearchResults(BaseModel):
     results: List[MangaResult]
 
 
+class TopManga(BaseModel):
+    title: str
+
+
+class TopResults(BaseModel):
+    results: List[TopManga]
+
+
 class Chapter(BaseModel):
     id: int
     hid: str
