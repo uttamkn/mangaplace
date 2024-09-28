@@ -61,4 +61,3 @@ def save_images_as_pdf(images, output_pdf):
     """
     if images:
         images[0].save(output_pdf, save_all=True, append_images=images[1:])
-

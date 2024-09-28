@@ -5,6 +5,8 @@
 from typing import List
 
 from aiohttp import ClientError, ClientSession
+from pydantic import ValidationError
+
 from config import BASE_API_URL, HEADERS
 from models import (
     Chapter,
@@ -14,7 +16,6 @@ from models import (
     MangaResult,
     SearchResults,
 )
-from pydantic import ValidationError
 
 
 async def fetch_data(url: str):
@@ -33,7 +34,7 @@ async def fetch_data(url: str):
                     f"Failed to fetch: {error_text} (status: {response.status})"
                 )
         except ClientError as e:
-            raise ConnectionError(f"Request failed: {str(e)}")
+            raise ConnectionError(f"Request failed: {str(e)}") from e
 
 
 async def search_manga(query: str) -> List[MangaResult]:
@@ -46,7 +47,7 @@ async def search_manga(query: str) -> List[MangaResult]:
         search_results = SearchResults.model_validate({"results": data})
         return search_results.results
     except ValidationError as e:
-        raise ValueError(f"Data validation failed: {e}")
+        raise ValueError(f"Data validation failed: {e}") from e
 
 
 async def get_chapter_list(hid: str) -> List[Chapter]:
@@ -59,7 +60,7 @@ async def get_chapter_list(hid: str) -> List[Chapter]:
         formatted_data = ChapterResults.model_validate(data)
         return formatted_data.chapters
     except ValidationError as e:
-        raise ValueError(f"Data validation failed: {e}")
+        raise ValueError(f"Data validation failed: {e}") from e
 
 
 async def get_image_list(hid: str) -> List[Images]:
@@ -72,4 +73,4 @@ async def get_image_list(hid: str) -> List[Images]:
         search_results = ListImages.model_validate({"images": data})
         return search_results.images
     except ValidationError as e:
-        raise ValueError(f"Data validation failed: {e}")
+        raise ValueError(f"Data validation failed: {e}") from e
