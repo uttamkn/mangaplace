@@ -1,6 +1,6 @@
 # MangaPlace
 
-![version](https://img.shields.io/badge/version-0.1.0-blue.svg)
+![version](https://img.shields.io/badge/version-0.2.0-blue.svg)
 ![license](https://img.shields.io/badge/license-MIT-green.svg)
 [![AUR](https://img.shields.io/aur/version/mangaplace.svg)](https://aur.archlinux.org/packages/mangaplace)
 
@@ -9,6 +9,7 @@
 ## Features
 
 - Search for manga by title.
+- Get the list of trending manga.
 - Download manga chapters.
 - Retrieve detailed information and descriptions of manga.
 
@@ -37,25 +38,32 @@ To use **MangaPlace**, type one of the following commands in your terminal:
 - **Search for a manga:**
 
   ```bash
-  mangaplace --search "One Piece"
+  mangaplace search "One Piece"
+  ```
+
+- **Get the list of trending manga:**
+
+  ```bash
+  mangaplace top
   ```
 
 - **Download a manga:**
 
   ```bash
-  mangaplace --download "Naruto"
+  mangaplace download "Naruto"
   ```
 
 - **Get information about a manga:**
   ```bash
-  mangaplace --info "Attack on Titan"
+  mangaplace info "Attack on Titan"
   ```
 
 ### Command Options
 
-- `-s, --search` : Search for mangas by title.
-- `-d, --download` : Download a manga by title.
-- `-i, --info` : Get the description of a manga by title.
+- `search` : Search for mangas by title.
+- `top` : Get the list of trending manga.
+- `download` : Download a manga by title.
+- `info` : Get the description of a manga by title.
 
 ## API
 
