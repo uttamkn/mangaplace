@@ -9,11 +9,7 @@ dependencies = [
     "pydantic>=2.8.2",
     "aiohttp>=3.10.5",
     "pillow>=10.4.0",
-    "pylint>=3.2.7",
     "iterfzf>=1.4.0.54.3",
     "pyinstaller>=6.10.0",
 ]
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"

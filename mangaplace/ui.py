@@ -2,13 +2,13 @@
 
 import asyncio
 
-from iterfzf import iterfzf
-from rich.console import Console
-from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
-from rich.prompt import Prompt
-
 from endpoints import get_chapter_list, get_image_list
 from image_utils import fetch_and_combine_images
+from iterfzf import iterfzf
+from rich.console import Console
+from rich.live import Live
+from rich.progress import BarColumn, Progress, SpinnerColumn, TaskID, TextColumn
+from rich.prompt import Prompt
 from utils import get_path
 
 console = Console()
@@ -76,44 +76,82 @@ def search_chapter(hid: str, manga_name: str):
     selected_indices = [int(s.split(" - ", maxsplit=1)[0].strip()) for s in selected]  # type: ignore
     selected_hids = [index_to_hid[i] for i in selected_indices]
 
+    console.print("[green]You selected:[/green]")
     for idx in selected_indices:
-        console.print(f"[green]You selected chapter:[/green] {chapter_options[idx]}")
+        console.print(f"{chapter_options[idx]}")
 
     confirm = Prompt.ask(
-        "[cyan]Do you want to proceed with downloading the selected chapter(s)? (yes/no)[/cyan]",
+        "[cyan]Do you want to proceed with downloading the selected chapter(s)?[/cyan]",
         choices=["yes", "no"],
     )
 
     if confirm == "yes":
-        for selected_index, selected_hid in zip(selected_indices, selected_hids):
-            asyncio.run(download_chapter(selected_hid, manga_name, selected_index))
+        asyncio.run(
+            download_multiple_chapters_concurrently(
+                selected_hids, manga_name, selected_indices
+            )
+        )
     else:
         console.print("[yellow]Operation cancelled by user.[/yellow]")
 
 
-async def download_chapter(hid: str, pdf_name: str, index: int):
-    """UI for downloading the chapter."""
-    console.print(f"[cyan]Downloading chapter...[/cyan]")
-    download_dir_path = await get_path()
-    pdf_path = download_dir_path + pdf_name + "_" + str(index + 1) + ".pdf"
+async def download_multiple_chapters_concurrently(
+    selected_hids: list, manga_name: str, selected_indices: list
+):
+    """Download multiple chapters concurrently."""
 
-    with Progress(
+    chapter_progress = Progress(
         SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
+        TextColumn("[cyan]{task.description}"),
         BarColumn(),
+        "[progress.percentage]{task.percentage:>3.0f}%",
         console=console,
-    ) as progress:
-        task = progress.add_task(description="Fetching images", total=None)
+    )
+    tasks = []
+    for selected_hid, selected_index in zip(selected_hids, selected_indices):
+        chapter_task_id = chapter_progress.add_task(
+            f"Chapter {selected_index + 1}", total=1
+        )
+        tasks.append(
+            download_chapter(
+                selected_hid,
+                manga_name,
+                selected_index,
+                chapter_progress,
+                chapter_task_id,
+            )
+        )
 
-        images_list = await get_image_list(hid)
-        image_names = [image.b2key for image in images_list]
+    with Live(chapter_progress, refresh_per_second=10, console=console):
+        await asyncio.gather(*tasks)
 
-        progress.update(task, description="Combining images into PDF", total=None)
 
-        if image_names:
-            await fetch_and_combine_images(pdf_path, image_names)
-            progress.update(task, completed=True)
-            console.print(f"[green]Download complete! Saved as {pdf_name}[/green]")
-        else:
-            console.print("[red]No images found to download.[/red]")
-            return
+async def download_chapter(
+    hid: str,
+    pdf_name: str,
+    index: int,
+    chapter_progress: Progress,
+    chapter_task_id: TaskID,
+):
+    """Download a chapter and combine images into a PDF."""
+    download_dir_path = await get_path()
+    pdf_path = f"{download_dir_path}{pdf_name}_{index + 1}.pdf"
+
+    images_list = await get_image_list(hid)
+    image_names = [image.b2key for image in images_list]
+
+    if image_names:
+        await fetch_and_combine_images(
+            pdf_path, image_names, chapter_progress, chapter_task_id
+        )
+
+        chapter_progress.update(chapter_task_id, completed=True)
+
+        console.print(
+            f"[green]Chapter {index + 1} downloaded successfully![/green] Saved as {pdf_path}"
+        )
+    else:
+        console.print(
+            f"[red]No images found for Chapter {index + 1}. Skipping...[/red]"
+        )
+        chapter_progress.update(chapter_task_id, visible=False)

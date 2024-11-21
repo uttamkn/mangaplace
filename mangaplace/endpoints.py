@@ -5,8 +5,6 @@
 from typing import List
 
 from aiohttp import ClientError, ClientSession
-from pydantic import ValidationError
-
 from config import BASE_API_URL, HEADERS
 from models import (
     Chapter,
@@ -18,6 +16,7 @@ from models import (
     TopManga,
     TopResults,
 )
+from pydantic import ValidationError
 
 
 async def fetch_data(url: str):

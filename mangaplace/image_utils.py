@@ -3,12 +3,12 @@ This module contains utility functions for downloading and combining images.
 """
 
 import asyncio
-from concurrent.futures import ThreadPoolExecutor
 from io import BytesIO
 from typing import List
 
 import aiohttp
 from PIL import Image
+from rich.progress import Progress, TaskID
 
 
 async def download_image(session: aiohttp.ClientSession, url: str):
@@ -21,7 +21,12 @@ async def download_image(session: aiohttp.ClientSession, url: str):
         return None
 
 
-async def fetch_and_combine_images(output_pdf: str, image_names: List[str]):
+async def fetch_and_combine_images(
+    output_pdf: str,
+    image_names: List[str],
+    chapter_progress: Progress,
+    chapter_task_id: TaskID,
+):
     """
     Fetch and combine images into a PDF file asynchronously using aiohttp.
     """
@@ -30,6 +35,7 @@ async def fetch_and_combine_images(output_pdf: str, image_names: List[str]):
     ]
     images = []
 
+    chapter_progress.update(chapter_task_id, description="Downloading images")
     async with aiohttp.ClientSession() as session:
         tasks = [download_image(session, url) for url in image_urls]
 
@@ -45,11 +51,9 @@ async def fetch_and_combine_images(output_pdf: str, image_names: List[str]):
         if image_data:
             image = Image.open(BytesIO(image_data)).convert("RGB")
             images.append(image)
-
+    chapter_progress.update(chapter_task_id, description="Combining images into PDF")
     if images:
-        loop = asyncio.get_event_loop()
-        with ThreadPoolExecutor() as pool:
-            await loop.run_in_executor(pool, save_images_as_pdf, images, output_pdf)
+        save_images_as_pdf(images, output_pdf)
         print(f"PDF saved as {output_pdf}")
     else:
         print("No images to combine.")

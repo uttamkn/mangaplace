@@ -1,8 +1,10 @@
+# maintainer="uttamkn uttamkn15@gmail.com"
+
 pkgname=mangaplace
-pkgver=0.2.0
-pkgrel=2
+pkgver=0.3.0
+pkgrel=3
 pkgdesc="A CLI tool to download manga."
-arch=('any')
+arch=('x86_64')
 url="https://github.com/uttamkn/mangaplace"
 license=('MIT')
 source=("${pkgname}::https://github.com/uttamkn/mangaplace/releases/download/v${pkgver}/${pkgname}")

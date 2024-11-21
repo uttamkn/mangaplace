@@ -5,12 +5,11 @@ main.py
 import asyncio
 
 import typer
+from endpoints import get_top_list, search_manga
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.table import Table
-
-from endpoints import get_top_list, search_manga
 from ui import search_chapter, select_manga, show_manga_list, show_top_manga_list
 
 app = typer.Typer()
@@ -61,7 +60,7 @@ def download(download_query: str):
     console.print(f"[green]You selected:[/green] {manga_options[selected_index]}")
 
     confirm = Prompt.ask(
-        "[cyan]Do you want to proceed with this manga? (yes/no)[/cyan]",
+        "[cyan]Do you want to proceed with this manga?[/cyan]",
         choices=["yes", "no"],
     )
     if confirm == "yes":
