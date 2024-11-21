@@ -54,7 +54,6 @@ async def fetch_and_combine_images(
     chapter_progress.update(chapter_task_id, description="Combining images into PDF")
     if images:
         save_images_as_pdf(images, output_pdf)
-        print(f"PDF saved as {output_pdf}")
     else:
         print("No images to combine.")
 
