@@ -73,7 +73,7 @@ jobs:
         run: |
           git config user.name "CI Bot"
           git config user.email "ci@users.noreply.github.com"
-          git add PKGBUILD .SRCINFO mangaplace
+          git add PKGBUILD .SRCINFO
           git commit -m "release: v${NEWVER}" || echo "No changes to commit"
           git push
         env:
