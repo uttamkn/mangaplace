@@ -2,14 +2,14 @@
 
 import asyncio
 
-from endpoints import get_chapter_list, get_image_list
-from image_utils import fetch_and_combine_images
 from iterfzf import iterfzf
 from rich.console import Console
 from rich.live import Live
 from rich.progress import BarColumn, Progress, SpinnerColumn, TaskID, TextColumn
 from rich.prompt import Prompt
-from utils import get_path
+from mangaplace.endpoints import get_chapter_list, get_image_list
+from mangaplace.image_utils import fetch_and_combine_images
+from mangaplace.utils import get_path
 
 console = Console()
 

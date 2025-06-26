@@ -10,6 +10,8 @@ import aiohttp
 from PIL import Image
 from rich.progress import Progress, TaskID
 
+from mangaplace.config import IMAGE_BASE_URL
+
 
 async def download_image(session: aiohttp.ClientSession, url: str):
     """
@@ -30,9 +32,7 @@ async def fetch_and_combine_images(
     """
     Fetch and combine images into a PDF file asynchronously using aiohttp.
     """
-    image_urls = [
-        f"https://meo3.comick.pictures/{image_name}" for image_name in image_names
-    ]
+    image_urls = [f"{IMAGE_BASE_URL}/{image_name}" for image_name in image_names]
     images = []
 
     chapter_progress.update(chapter_task_id, description="Downloading images")

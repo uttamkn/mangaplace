@@ -5,12 +5,17 @@ main.py
 import asyncio
 
 import typer
-from endpoints import get_top_list, search_manga
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.table import Table
-from ui import search_chapter, select_manga, show_manga_list, show_top_manga_list
+from mangaplace.endpoints import get_top_list, search_manga
+from mangaplace.ui import (
+    search_chapter,
+    select_manga,
+    show_manga_list,
+    show_top_manga_list,
+)
 
 app = typer.Typer()
 console = Console()

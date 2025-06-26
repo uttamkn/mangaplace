@@ -14,7 +14,7 @@ async def get_path() -> str:
     """Get the download path from the settings file."""
     xdg_config = os.getenv("XDG_CONFIG")
 
-    if not xdg_config or xdg_config == "":
+    if not xdg_config:
         xdg_config = os.path.join(str(os.getenv("HOME")), ".config/")
     json_file_path = os.path.join(xdg_config, "mangaplace", "settings.json")
 
@@ -43,7 +43,7 @@ async def get_path() -> str:
                 with open(json_file_path, "w") as f:
                     json.dump(data, f)
 
-    if "download_path" not in data or not data["download_path"]:
+    if "download_path" not in data:
         dir = Prompt.ask(
             "[yellow]Give fully qualified path of the directory \
             where you want to store your files: [/yellow]"
