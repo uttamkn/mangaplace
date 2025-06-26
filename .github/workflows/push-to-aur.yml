@@ -55,6 +55,9 @@ jobs:
             chown -R builduser:builduser /pkgbuild &&
             su builduser -c 'cd /pkgbuild && makepkg --printsrcinfo > .SRCINFO'"
 
+      - name: Fix permissions after Docker
+        run: sudo chown -R $USER:$USER aur-repo
+
       - name: Commit and push to AUR
         working-directory: aur-repo
         run: |
