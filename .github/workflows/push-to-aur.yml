@@ -36,15 +36,24 @@ jobs:
           curl -L -o mangaplace \
             https://github.com/uttamkn/mangaplace/releases/download/v${{ env.NEWVER }}/mangaplace-${{ env.NEWVER }}.zip
 
-      - name: Update PKGBUILD and .SRCINFO
+      - name: Update PKGBUILD
         working-directory: aur-repo
         run: |
           sed -i "s/^pkgver=.*/pkgver=${NEWVER}/" PKGBUILD
           shasum=$(sha256sum mangaplace | cut -d ' ' -f1)
           sed -i "s/^sha256sums=.*/sha256sums=('${shasum}')/" PKGBUILD
-          makepkg --printsrcinfo > .SRCINFO
         env:
           NEWVER: ${{ env.NEWVER }}
+
+      - name: Generate .SRCINFO using Arch container
+        working-directory: aur-repo
+        run: |
+          docker run --rm -v "$PWD:/pkgbuild" archlinux:base-devel bash -c "
+            pacman -Sy --noconfirm git &&
+            useradd -m builduser &&
+            echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers &&
+            chown -R builduser:builduser /pkgbuild &&
+            su builduser -c 'cd /pkgbuild && makepkg --printsrcinfo > .SRCINFO'"
 
       - name: Commit and push to AUR
         working-directory: aur-repo
