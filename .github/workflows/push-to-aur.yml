@@ -14,13 +14,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Download version artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: version
-
-      - name: Read version
-        run: echo "NEWVER=$(cat version.txt)" >> $GITHUB_ENV
+      - name: Get latest release version
+        run: |
+          NEWVER=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+          echo "NEWVER=$NEWVER" >> $GITHUB_ENV
 
       - name: Set up SSH for AUR
         run: |
