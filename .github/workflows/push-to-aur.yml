@@ -25,17 +25,17 @@ jobs:
       - name: Clone AUR repo
         run: git clone ssh://aur@aur.archlinux.org/mangaplace.git aur-repo
 
-      - name: Download release zip
+      - name: Download mangaplace binary
         working-directory: aur-repo
         run: |
-          curl -L -o mangaplace-${{ env.NEWVER }}.zip \
-            https://github.com/uttamkn/mangaplace/releases/download/v${{ env.NEWVER }}/mangaplace-${{ env.NEWVER }}.zip
+          curl -L -o mangaplace \
+            https://github.com/uttamkn/mangaplace/releases/download/v${{ env.NEWVER }}/mangaplace
 
       - name: Update PKGBUILD and .SRCINFO
         working-directory: aur-repo
         run: |
           sed -i "s/^pkgver=.*/pkgver=${NEWVER}/" PKGBUILD
-          shasum=$(sha256sum mangaplace-${NEWVER}.zip | cut -d ' ' -f1)
+          shasum=$(sha256sum mangaplace | cut -d ' ' -f1)
           sed -i "s/^sha256sums=.*/sha256sums=('${shasum}')/" PKGBUILD
           makepkg --printsrcinfo > .SRCINFO
         env:
