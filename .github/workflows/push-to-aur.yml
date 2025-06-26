@@ -1,19 +1,26 @@
 name: Push to AUR
 
 on:
-  release:
-    types: [published]
+  workflow_run:
+    workflows: ["Release Binary"]
+    types:
+      - completed
 
 jobs:
   aur:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout GitHub release repo
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Extract version from tag
-        run: echo "NEWVER=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+      - name: Download version artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+
+      - name: Read version
+        run: echo "NEWVER=$(cat version.txt)" >> $GITHUB_ENV
 
       - name: Set up SSH for AUR
         run: |
@@ -30,7 +37,9 @@ jobs:
         working-directory: aur-repo
         run: |
           curl -L -o mangaplace \
-            https://github.com/uttamkn/mangaplace/releases/download/v${{ env.NEWVER }}/mangaplace
+            https://github.com/uttamkn/mangaplace/releases/download/v${{ env.NEWVER }}/mangaplace-${{ env.NEWVER }}.zip
+          unzip mangaplace-${{ env.NEWVER }}.zip
+          rm mangaplace-${{ env.NEWVER }}.zip
 
       - name: Update PKGBUILD and .SRCINFO
         working-directory: aur-repo
@@ -47,7 +56,7 @@ jobs:
         run: |
           git config user.name "CI Bot"
           git config user.email "ci@users.noreply.github.com"
-          git add PKGBUILD .SRCINFO
+          git add PKGBUILD .SRCINFO mangaplace
           git commit -m "release: v${NEWVER}" || echo "No changes to commit"
           git push
         env:
