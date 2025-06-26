@@ -1,0 +1,53 @@
+name: Push to AUR
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  aur:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout GitHub release repo
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        run: echo "NEWVER=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Set up SSH for AUR
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AUR_SSH_KEY }}" > ~/.ssh/aur
+          chmod 600 ~/.ssh/aur
+          echo -e "Host aur.archlinux.org\n\tHostname aur.archlinux.org\n\tIdentityFile ~/.ssh/aur\n\tUser aur" >> ~/.ssh/config
+
+      - name: Clone AUR repo
+        run: git clone ssh://aur@aur.archlinux.org/mangaplace.git aur-repo
+
+      - name: Download release zip
+        working-directory: aur-repo
+        run: |
+          curl -L -o mangaplace-${{ env.NEWVER }}.zip \
+            https://github.com/uttamkn/mangaplace/releases/download/v${{ env.NEWVER }}/mangaplace-${{ env.NEWVER }}.zip
+
+      - name: Update PKGBUILD and .SRCINFO
+        working-directory: aur-repo
+        run: |
+          sed -i "s/^pkgver=.*/pkgver=${NEWVER}/" PKGBUILD
+          shasum=$(sha256sum mangaplace-${NEWVER}.zip | cut -d ' ' -f1)
+          sed -i "s/^sha256sums=.*/sha256sums=('${shasum}')/" PKGBUILD
+          makepkg --printsrcinfo > .SRCINFO
+        env:
+          NEWVER: ${{ env.NEWVER }}
+
+      - name: Commit and push to AUR
+        working-directory: aur-repo
+        run: |
+          git config user.name "CI Bot"
+          git config user.email "ci@users.noreply.github.com"
+          git add PKGBUILD .SRCINFO
+          git commit -m "release: v${NEWVER}" || echo "No changes to commit"
+          git push
+        env:
+          NEWVER: ${{ env.NEWVER }}
