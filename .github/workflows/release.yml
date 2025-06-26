@@ -15,10 +15,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install fzf
+      - name: Update system and install CA Certificates and fzf
         run: |
           sudo apt-get update
-          sudo apt-get install -y fzf
+          sudo apt-get install -y --no-install-recommends ca-certificates fzf
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6
@@ -36,7 +36,7 @@ jobs:
       - name: Extract version
         id: version
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
-      
+
       - name: Archive the binary
         run: |
           cd dist
