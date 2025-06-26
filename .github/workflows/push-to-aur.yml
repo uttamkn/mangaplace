@@ -20,7 +20,8 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.AUR_SSH_KEY }}" > ~/.ssh/aur
           chmod 600 ~/.ssh/aur
-          echo -e "Host aur.archlinux.org\n\tHostname aur.archlinux.org\n\tIdentityFile ~/.ssh/aur\n\tUser aur" >> ~/.ssh/config
+          ssh-keyscan aur.archlinux.org >> ~/.ssh/known_hosts
+          echo -e "Host aur.archlinux.org\n\tHostname aur.archlinux.org\n\tIdentityFile ~/.ssh/aur\n\tUser aur\n\tStrictHostKeyChecking=yes\n\tUserKnownHostsFile ~/.ssh/known_hosts" >> ~/.ssh/config
 
       - name: Clone AUR repo
         run: git clone ssh://aur@aur.archlinux.org/mangaplace.git aur-repo
