@@ -11,5 +11,6 @@ dependencies = [
     "pillow>=10.4.0",
     "iterfzf>=1.4.0.54.3",
     "pyinstaller>=6.10.0",
+    "certifi>=2025.6.15",
 ]
 
