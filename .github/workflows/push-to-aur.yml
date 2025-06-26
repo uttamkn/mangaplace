@@ -35,8 +35,6 @@ jobs:
         run: |
           curl -L -o mangaplace \
             https://github.com/uttamkn/mangaplace/releases/download/v${{ env.NEWVER }}/mangaplace-${{ env.NEWVER }}.zip
-          unzip mangaplace-${{ env.NEWVER }}.zip
-          rm mangaplace-${{ env.NEWVER }}.zip
 
       - name: Update PKGBUILD and .SRCINFO
         working-directory: aur-repo
