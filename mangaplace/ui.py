@@ -100,6 +100,8 @@ async def download_multiple_chapters_concurrently(
 ):
     """Download multiple chapters concurrently."""
 
+    download_dir_path = await get_path()
+
     chapter_progress = Progress(
         SpinnerColumn(),
         TextColumn("[cyan]{task.description}"),
@@ -107,6 +109,7 @@ async def download_multiple_chapters_concurrently(
         "[progress.percentage]{task.percentage:>3.0f}%",
         console=console,
     )
+
     tasks = []
     for selected_hid, selected_index in zip(selected_hids, selected_indices):
         chapter_task_id = chapter_progress.add_task(
@@ -117,6 +120,7 @@ async def download_multiple_chapters_concurrently(
                 selected_hid,
                 manga_name,
                 selected_index,
+                download_dir_path,
                 chapter_progress,
                 chapter_task_id,
             )
@@ -130,11 +134,11 @@ async def download_chapter(
     hid: str,
     pdf_name: str,
     index: int,
+    download_dir_path: str,
     chapter_progress: Progress,
     chapter_task_id: TaskID,
 ):
     """Download a chapter and combine images into a PDF."""
-    download_dir_path = await get_path()
     pdf_path = f"{download_dir_path}{pdf_name}_{index + 1}.pdf"
 
     images_list = await get_image_list(hid)
