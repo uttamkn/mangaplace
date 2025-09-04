@@ -5,8 +5,8 @@ This file contains the functions that interact with the api.comick.fun API.
 from typing import List
 
 from aiohttp import ClientError, ClientSession
-from config import BASE_API_URL, HEADERS
-from models import (
+from mangaplace.config import BASE_API_URL, HEADERS
+from mangaplace.models import (
     Chapter,
     ChapterResults,
     Images,

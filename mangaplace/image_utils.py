@@ -10,7 +10,7 @@ import aiohttp
 from PIL import Image
 from rich.progress import Progress, TaskID
 
-from config import IMAGE_BASE_URL
+from mangaplace.config import IMAGE_BASE_URL
 
 
 async def download_image(session: aiohttp.ClientSession, url: str):
