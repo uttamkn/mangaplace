@@ -9,8 +9,8 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.table import Table
-from mangaplace.endpoints import get_top_list, search_manga
-from mangaplace.ui import (
+from endpoints import get_top_list, search_manga
+from ui import (
     search_chapter,
     select_manga,
     show_manga_list,
@@ -19,6 +19,13 @@ from mangaplace.ui import (
 
 app = typer.Typer()
 console = Console()
+
+
+def handle_error(e: Exception):
+    """Handles and displays errors."""
+    console.print(
+        Panel(f"[bold red]An error occurred:[/bold red] {e}", border_style="red")
+    )
 
 
 def display_manga_results(manga_result):
@@ -36,7 +43,11 @@ def display_manga_results(manga_result):
 @app.command()
 def search(search_string: str):
     """Search for manga by title"""
-    mangas = asyncio.run(search_manga(search_string))
+    try:
+        mangas = asyncio.run(search_manga(search_string))
+    except (ConnectionError, PermissionError, ValueError) as e:
+        handle_error(e)
+        return
 
     manga_result = show_manga_list(mangas)
     if not manga_result:
@@ -49,7 +60,12 @@ def search(search_string: str):
 @app.command()
 def download(download_query: str):
     """Download a manga by title"""
-    mangas = asyncio.run(search_manga(download_query))
+    try:
+        mangas = asyncio.run(search_manga(download_query))
+    except (ConnectionError, PermissionError, ValueError) as e:
+        handle_error(e)
+        return
+
     manga_result = show_manga_list(mangas)
     if not manga_result:
         console.print("[red]No manga found.[/red]")
@@ -77,7 +93,12 @@ def download(download_query: str):
 @app.command()
 def info(info_query: str):
     """Get information of a manga by title"""
-    mangas = asyncio.run(search_manga(info_query))
+    try:
+        mangas = asyncio.run(search_manga(info_query))
+    except (ConnectionError, PermissionError, ValueError) as e:
+        handle_error(e)
+        return
+
     manga_result = show_manga_list(mangas)
     if not manga_result:
         console.print("[red]No manga found.[/red]")
@@ -107,7 +128,11 @@ def info(info_query: str):
 @app.command()
 def top():
     """Get top manga list"""
-    mangas = asyncio.run(get_top_list())
+    try:
+        mangas = asyncio.run(get_top_list())
+    except (ConnectionError, PermissionError, ValueError) as e:
+        handle_error(e)
+        return
 
     manga_result = show_top_manga_list(mangas)
     if not manga_result:

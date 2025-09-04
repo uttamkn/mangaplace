@@ -2,11 +2,10 @@
 This file contains the configuration for the api.comick.fun API.
 """
 
-BASE_API_URL = "https://api.comick.fun"
+BASE_API_URL = "https://comick-api-proxy.notaspider.dev/api/"
 IMAGE_BASE_URL = "https://meo3.comick.pictures"
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
-    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "User-Agent": "Mangaplace/1.0",
     "Accept": "application/json, text/plain, */*",
     "Accept-Language": "en-US,en;q=0.9",
     "Referer": "https://comick.fun/",
