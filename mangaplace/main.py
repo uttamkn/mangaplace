@@ -2,9 +2,11 @@
 main.py
 """
 
+import os
 import asyncio
 
 import typer
+import certifi
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
@@ -16,6 +18,8 @@ from mangaplace.ui import (
     show_manga_list,
     show_top_manga_list,
 )
+
+os.environ["SSL_CERT_FILE"] = certifi.where()
 
 app = typer.Typer()
 console = Console()
