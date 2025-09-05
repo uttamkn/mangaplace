@@ -1,6 +1,6 @@
 # MangaPlace
 
-![version](https://img.shields.io/badge/version-0.3.0-blue.svg)
+![version](https://img.shields.io/badge/version-1.0.2-blue.svg)
 ![license](https://img.shields.io/badge/license-MIT-green.svg)
 [![AUR](https://img.shields.io/aur/version/mangaplace.svg)](https://aur.archlinux.org/packages/mangaplace)
 
