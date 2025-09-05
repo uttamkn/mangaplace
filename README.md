@@ -58,13 +58,6 @@ To use **MangaPlace**, type one of the following commands in your terminal:
   mangaplace info "Attack on Titan"
   ```
 
-### Command Options
-
-- `search` : Search for mangas by title.
-- `top` : Get the list of trending manga.
-- `download` : Download a manga by title.
-- `info` : Get the description of a manga by title.
-
 ## API
 
 **MangaPlace** relies on the **[comick api](https://api.comick.fun/docs/static/index.html)** API to provide manga search, download, and information services. Special thanks to the creators of this API for making their service available.
